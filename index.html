@@ -209,8 +209,17 @@
   .playground-header p { color: var(--fg2); font-size: 1.05rem; max-width: 560px; line-height: 1.75; }
   .playground-grid { max-width: 1100px; margin: 0 auto; padding: 1rem 2rem 5rem; display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.2rem; }
   .pg-item { border-radius: var(--radius); overflow: hidden; background: #e8e4db; }
-  .pg-item img, .pg-item video { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .pg-item video { background: #111; }
+  .pg-item img { width: 100%; height: 100%; object-fit: contain; display: block; cursor: zoom-in; transition: transform 0.2s; }
+  .pg-item img:hover { transform: scale(1.02); }
+  .pg-item video { width: 100%; height: 100%; object-fit: cover; display: block; background: #111; }
+
+  /* ─── LIGHTBOX ─── */
+  .lightbox { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; padding: 2rem; cursor: zoom-out; }
+  .lightbox.open { display: flex; animation: lbFade 0.2s ease; }
+  @keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
+  .lightbox-img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 10px; cursor: default; box-shadow: 0 32px 80px rgba(0,0,0,0.6); }
+  .lightbox-close { position: fixed; top: 1.2rem; right: 1.5rem; background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 1.2rem; cursor: pointer; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.2s; z-index: 501; font-family: var(--sans); }
+  .lightbox-close:hover { background: rgba(255,255,255,0.25); }
   .pg-span-4  { grid-column: span 4; }
   .pg-span-5  { grid-column: span 5; }
   .pg-span-6  { grid-column: span 6; }
@@ -709,7 +718,9 @@
           <img src="https://framerusercontent.com/images/peKZ0T0zXKrkPjUQ7KSMVZTWs.png" alt="">
           <img src="https://framerusercontent.com/images/LExhiF0sZN6DtwKZtcs3p9Ns.png" alt="">
         </div>
-        <img src="https://framerusercontent.com/images/66OGfz76ti14H0WWHS6zVHOnzh4.gif" alt="">
+        <div style="max-width:480px; margin:0 auto;">
+          <img src="https://framerusercontent.com/images/66OGfz76ti14H0WWHS6zVHOnzh4.gif" alt="">
+        </div>
       </div>
       <div class="project-nav-row">
         <button class="project-nav-btn" onclick="showProject('laluzincidente')">← La luz incidente</button>
@@ -731,7 +742,7 @@
       <p data-es="Diseños experimentales y proyectos personales creados para explorar los límites del diseño en proyectos emergentes." data-en="Experimental designs and side projects crafted to push boundaries for emerging ventures.">Diseños experimentales y proyectos personales creados para explorar los límites del diseño en proyectos emergentes.</p>
     </div>
     <div class="playground-grid">
-      <div class="pg-item pg-span-12 pg-h-land">
+      <div class="pg-item" style="grid-column: 3 / 11; aspect-ratio:21/9;">
         <video autoplay muted loop playsinline>
           <source src="https://framerusercontent.com/assets/xBIDmSbmQ3tvLowlFtVHfsX0p3Q.mp4" type="video/mp4">
         </video>
@@ -749,7 +760,7 @@
       <div class="pg-item pg-span-4 pg-h-port">
         <img src="https://framerusercontent.com/images/uEtVeUb7ERHzsRWCQWx6EDvOso4.png" alt="">
       </div>
-      <div class="pg-item pg-span-8" style="aspect-ratio:unset;">
+      <div class="pg-item pg-span-6" style="aspect-ratio:unset;">
         <img src="https://framerusercontent.com/images/cLpybM5RyQVjjj7DrrbbEAVhA.png" alt="">
       </div>
       <div class="pg-item pg-span-7 pg-h-land">
@@ -762,10 +773,10 @@
         <div class="pg-item" style="height:100%;"><img src="https://framerusercontent.com/images/XjqyJQV6BUekLjvI0XezwNd6DA.png" alt=""></div>
         <div class="pg-item" style="height:100%;"><img src="https://framerusercontent.com/images/NjIca3Mdln7B9oMDYfP08l47KQ.png" alt=""></div>
       </div>
-      <div class="pg-item pg-span-6 pg-h-sq">
+      <div class="pg-item pg-span-6 pg-h-land">
         <img src="https://framerusercontent.com/images/hz19mOl6iIfqsNtS5uvyoruRvQ.png" alt="">
       </div>
-      <div class="pg-item pg-span-6 pg-h-sq">
+      <div class="pg-item pg-span-6 pg-h-land">
         <img src="https://framerusercontent.com/images/Qzbom9cJ0HASHiENNFPgGOLz08.png" alt="">
       </div>
       <div class="pg-item pg-span-6 pg-h-land">
@@ -785,6 +796,12 @@
   </div>
 </div><!-- /page-playground -->
 
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox({target:this})">✕</button>
+  <img class="lightbox-img" id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+</div>
 
 <script>
   // ─── ROUTER ───
@@ -818,6 +835,28 @@
       el.innerHTML = text + ' <span class="ticker-dot">·</span>';
     });
   }
+
+  // ─── LIGHTBOX ───
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(e) {
+    if (e.target === document.getElementById('lightbox') || e.target.classList.contains('lightbox-close')) {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+  document.querySelectorAll('.pg-item img').forEach(img => {
+    img.addEventListener('click', () => openLightbox(img.src));
+  });
 
   // ─── FAQ ───
   document.querySelectorAll('.faq-q').forEach(btn => {
