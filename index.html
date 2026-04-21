@@ -16,7 +16,6 @@
     --fg2: #555;
     --fg3: #888;
     --accent: #c8a96e;
-    --accent2: #2a2a2a;
     --card-bg: #fff;
     --border: rgba(0,0,0,0.1);
     --nav-bg: rgba(245,242,236,0.92);
@@ -26,253 +25,97 @@
   }
 
   html { scroll-behavior: smooth; }
-
-  body {
-    font-family: var(--sans);
-    background: var(--bg);
-    color: var(--fg);
-    font-size: 16px;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
+  body { font-family: var(--sans); background: var(--bg); color: var(--fg); font-size: 16px; line-height: 1.7; overflow-x: hidden; }
 
   /* ─── NAV ─── */
   nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    background: var(--nav-bg);
-    backdrop-filter: blur(12px);
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    background: var(--nav-bg); backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 2.5rem;
-    height: 58px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem; height: 58px;
   }
-  .nav-logo {
-    font-family: var(--serif);
-    font-size: 1.1rem;
-    color: var(--fg);
-    text-decoration: none;
-    letter-spacing: 0.01em;
-  }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a {
-    text-decoration: none;
-    color: var(--fg2);
-    font-size: 0.9rem;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    transition: color 0.2s;
-  }
+  .nav-logo { font-family: var(--sans); font-size: 1.1rem; color: var(--fg); text-decoration: none; letter-spacing: 0.01em; cursor: pointer; font-weight: 500; }
+  .nav-links { display: flex; gap: 1.6rem; list-style: none; align-items: center; }
+  .nav-links a { text-decoration: none; color: var(--fg2); font-size: 0.9rem; font-weight: 400; letter-spacing: 0.02em; transition: color 0.2s; cursor: pointer; }
   .nav-links a:hover { color: var(--fg); }
-  .nav-cta {
-    background: var(--fg);
-    color: #fff !important;
-    padding: 6px 16px;
-    border-radius: 100px;
-    font-size: 0.85rem !important;
-    transition: background 0.2s !important;
-  }
+  .nav-cta { background: var(--fg); color: #fff !important; padding: 6px 16px; border-radius: 100px; font-size: 0.85rem !important; transition: background 0.2s !important; }
   .nav-cta:hover { background: #333 !important; color: #fff !important; }
+
+  /* ─── LANG SWITCH ─── */
+  .lang-switch {
+    display: flex; align-items: center; gap: 0;
+    background: rgba(0,0,0,0.06); border-radius: 100px;
+    padding: 3px; font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.04em; flex-shrink: 0;
+  }
+  .lang-btn {
+    padding: 4px 10px; border-radius: 100px; cursor: pointer;
+    border: none; background: transparent; color: var(--fg3);
+    font-family: var(--sans); font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.04em; transition: all 0.18s;
+  }
+  .lang-btn.active { background: var(--card-bg); color: var(--fg); box-shadow: 0 1px 4px rgba(0,0,0,0.12); }
+
+  /* ─── PAGES ─── */
+  .page { display: none; opacity: 0; }
+  .page.active { display: block; animation: pageFadeIn 1s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  @keyframes pageFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
 
   /* ─── HERO ─── */
   .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 100px 2rem 4rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 100px 2rem 4rem; text-align: center; position: relative; overflow: hidden;
   }
   .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
+    content: ''; position: absolute; inset: 0;
     background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(200,169,110,0.12) 0%, transparent 70%);
     pointer-events: none;
   }
-  .hero-eyebrow {
-    font-size: 0.78rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-    font-weight: 500;
-    margin-bottom: 1.2rem;
-  }
-  .hero h1 {
-    font-family: var(--serif);
-    font-size: clamp(3rem, 8vw, 6.5rem);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    color: var(--fg);
-    margin-bottom: 1.5rem;
-  }
+  .hero-eyebrow { font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 1.2rem; }
+  .hero h1 { font-family: var(--serif); font-size: clamp(3rem, 8vw, 6.5rem); line-height: 1.05; letter-spacing: -0.02em; color: var(--fg); margin-bottom: 1.5rem; }
   .hero h1 em { font-style: italic; color: var(--accent); }
-  .hero-desc {
-    max-width: 540px;
-    font-size: 1.05rem;
-    color: var(--fg2);
-    line-height: 1.75;
-    margin-bottom: 2.5rem;
-  }
+  .hero-desc { max-width: 540px; font-size: 1.05rem; color: var(--fg2); line-height: 1.75; margin-bottom: 2.5rem; }
   .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
-  .btn-primary {
-    background: var(--fg);
-    color: #fff;
-    padding: 12px 28px;
-    border-radius: 100px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: background 0.2s, transform 0.15s;
-    display: inline-flex; align-items: center; gap: 6px;
-  }
+  .btn-primary { background: var(--fg); color: #fff; padding: 12px 28px; border-radius: 100px; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: background 0.2s, transform 0.15s; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; border: none; }
   .btn-primary:hover { background: #333; transform: translateY(-1px); }
-  .btn-secondary {
-    border: 1.5px solid var(--border);
-    background: transparent;
-    color: var(--fg);
-    padding: 12px 28px;
-    border-radius: 100px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 400;
-    transition: background 0.2s;
-  }
+  .btn-secondary { border: 1.5px solid var(--border); background: transparent; color: var(--fg); padding: 12px 28px; border-radius: 100px; text-decoration: none; font-size: 0.9rem; font-weight: 400; transition: background 0.2s; cursor: pointer; }
   .btn-secondary:hover { background: rgba(0,0,0,0.04); }
 
   /* ─── TICKER ─── */
-  .ticker-wrap {
-    overflow: hidden;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 12px 0;
-    background: var(--bg);
-    position: relative;
-  }
-  .ticker-track {
-    display: flex;
-    gap: 0;
-    white-space: nowrap;
-    animation: ticker 22s linear infinite;
-    width: max-content;
-  }
+  .ticker-wrap { overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 12px 0; background: var(--bg); }
+  .ticker-track { display: flex; gap: 0; white-space: nowrap; animation: ticker 22s linear infinite; width: max-content; }
   .ticker-track:hover { animation-play-state: paused; }
-  .ticker-item {
-    font-family: var(--serif);
-    font-size: 0.85rem;
-    font-style: italic;
-    color: var(--fg2);
-    letter-spacing: 0.04em;
-    padding: 0 2.5rem;
-  }
-  .ticker-dot {
-    color: var(--accent);
-    font-size: 1.2rem;
-    line-height: 1;
-    vertical-align: middle;
-  }
-  @keyframes ticker {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
+  .ticker-item { font-family: var(--serif); font-size: 0.85rem; font-style: italic; color: var(--fg2); letter-spacing: 0.04em; padding: 0 2.5rem; }
+  .ticker-dot { color: var(--accent); font-size: 1.2rem; line-height: 1; vertical-align: middle; }
+  @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
   /* ─── SECTIONS ─── */
   section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
-  .section-label {
-    font-size: 0.75rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-    font-weight: 500;
-    margin-bottom: 0.6rem;
-  }
-  .section-title {
-    font-family: var(--serif);
-    font-size: clamp(2rem, 5vw, 3.2rem);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-  }
-  .section-sub {
-    color: var(--fg2);
-    max-width: 520px;
-    font-size: 1rem;
-    margin-bottom: 3rem;
-  }
+  .section-label { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 0.6rem; }
+  .section-title { font-family: var(--serif); font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1rem; }
+  .section-sub { color: var(--fg2); max-width: 520px; font-size: 1rem; margin-bottom: 3rem; }
 
   /* ─── WORKS GRID ─── */
-  .works-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-  }
-  .work-card {
-    background: var(--card-bg);
-    border-radius: var(--radius);
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-    border: 1px solid var(--border);
-    transition: transform 0.25s, box-shadow 0.25s;
-    display: block;
-  }
+  .works-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
+  .work-card { background: var(--card-bg); border-radius: var(--radius); overflow: hidden; text-decoration: none; color: inherit; border: 1px solid var(--border); transition: transform 0.25s, box-shadow 0.25s; display: block; cursor: pointer; }
   .work-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
-  .work-card-img {
-    width: 100%;
-    aspect-ratio: 16/10;
-    object-fit: cover;
-    display: block;
-    background: #e8e4db;
-  }
+  .work-card-img { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; background: #e8e4db; }
   .work-card-body { padding: 1.25rem 1.4rem; }
-  .work-card-tag {
-    font-size: 0.7rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent);
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-  }
-  .work-card h3 {
-    font-family: var(--serif);
-    font-size: 1.25rem;
-    margin-bottom: 0.6rem;
-    line-height: 1.25;
-  }
+  .work-card-tag { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 0.5rem; }
+  .work-card h3 { font-family: var(--serif); font-size: 1.25rem; margin-bottom: 0.6rem; line-height: 1.25; }
   .work-card p { font-size: 0.875rem; color: var(--fg2); line-height: 1.6; }
 
-  /* ─── SCROLL GALLERY ─── */
-  .gallery-wrap {
-    overflow: hidden;
-    margin: 0 -2rem;
-    padding: 2rem 0;
-  }
-  .gallery-track {
-    display: flex;
-    gap: 1.2rem;
-    animation: scroll-left 28s linear infinite;
-    width: max-content;
-  }
+  /* ─── GALLERY ─── */
+  .gallery-wrap { overflow: hidden; margin: 0 -2rem; padding: 2rem 0; }
+  .gallery-track { display: flex; gap: 1.2rem; animation: scroll-left 28s linear infinite; width: max-content; }
   .gallery-track:hover { animation-play-state: paused; }
-  .gallery-img {
-    height: 260px;
-    width: auto;
-    border-radius: 10px;
-    object-fit: cover;
-    flex-shrink: 0;
-    display: block;
-    background: #ddd;
-  }
-  @keyframes scroll-left {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
+  .gallery-img { height: 260px; width: auto; border-radius: 10px; object-fit: cover; flex-shrink: 0; display: block; background: #ddd; }
+  @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
   /* ─── SKILLS ─── */
   .skills-section { background: var(--fg); color: #fff; max-width: 100%; padding: 5rem 2rem; }
@@ -280,71 +123,24 @@
   .skills-section .section-title { color: #fff; }
   .skills-section .section-label { color: var(--accent); }
   .skills-section .section-sub { color: rgba(255,255,255,0.55); }
-  .skills-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 2rem;
-  }
-  .skill-pill {
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 100px;
-    padding: 8px 18px;
-    font-size: 0.88rem;
-    color: rgba(255,255,255,0.85);
-    transition: border-color 0.2s, background 0.2s;
-    cursor: default;
-  }
+  .skills-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+  .skill-pill { border: 1px solid rgba(255,255,255,0.2); border-radius: 100px; padding: 8px 18px; font-size: 0.88rem; color: rgba(255,255,255,0.85); transition: border-color 0.2s, background 0.2s; cursor: default; }
   .skill-pill:hover { border-color: var(--accent); background: rgba(200,169,110,0.1); }
 
   /* ─── ABOUT ─── */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: start;
-  }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
   .about-text p { color: var(--fg2); margin-bottom: 1rem; font-size: 0.97rem; }
   .about-text strong { color: var(--fg); font-weight: 500; }
   .about-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .about-img {
-    border-radius: var(--radius);
-    width: 100%;
-    aspect-ratio: 3/4;
-    object-fit: cover;
-    background: #ddd;
-    display: block;
-  }
+  .about-img { border-radius: var(--radius); width: 100%; aspect-ratio: 3/4; object-fit: cover; background: #ddd; display: block; }
   .about-img:first-child { grid-column: 1 / -1; aspect-ratio: 16/9; }
 
   /* ─── CONTACT ─── */
-  .contact-section {
-    text-align: center;
-    padding: 6rem 2rem;
-    max-width: 700px;
-    margin: 0 auto;
-  }
+  .contact-section { text-align: center; padding: 6rem 2rem; max-width: 700px; margin: 0 auto; }
   .contact-section .section-title { margin-bottom: 0.5rem; }
   .contact-section .section-sub { margin: 0 auto 3rem; }
-  .contact-links {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  .contact-link {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1rem 1.5rem;
-    text-decoration: none;
-    color: inherit;
-    min-width: 180px;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
+  .contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
+  .contact-link { display: flex; flex-direction: column; align-items: flex-start; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.5rem; text-decoration: none; color: inherit; min-width: 180px; transition: transform 0.2s, box-shadow 0.2s; }
   .contact-link:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
   .contact-link-label { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg3); font-weight: 500; margin-bottom: 0.3rem; }
   .contact-link-val { font-size: 0.92rem; font-weight: 500; color: var(--fg); }
@@ -352,49 +148,92 @@
   /* ─── FAQ ─── */
   .faq-list { list-style: none; border-top: 1px solid var(--border); }
   .faq-item { border-bottom: 1px solid var(--border); }
-  .faq-q {
-    width: 100%;
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    padding: 1.2rem 0;
-    font-family: var(--sans);
-    font-size: 0.97rem;
-    color: var(--fg);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-  }
+  .faq-q { width: 100%; background: none; border: none; cursor: pointer; text-align: left; padding: 1.2rem 0; font-family: var(--sans); font-size: 0.97rem; color: var(--fg); display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
   .faq-q .arrow { font-size: 1.1rem; transition: transform 0.25s; color: var(--fg3); }
   .faq-q.open .arrow { transform: rotate(45deg); }
   .faq-a { display: none; padding: 0 0 1.2rem; font-size: 0.9rem; color: var(--fg2); max-width: 620px; line-height: 1.7; }
   .faq-a.visible { display: block; }
 
   /* ─── FOOTER ─── */
-  footer {
-    border-top: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.5rem 2.5rem;
-    font-size: 0.82rem;
-    color: var(--fg3);
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  footer a { color: var(--fg3); text-decoration: none; }
+  footer { border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 2.5rem; font-size: 0.82rem; color: var(--fg3); flex-wrap: wrap; gap: 0.5rem; }
+  footer a { color: var(--fg3); text-decoration: none; cursor: pointer; }
   footer a:hover { color: var(--fg); }
+
+  /* ─── WORKS PAGE ─── */
+  .works-page { padding-top: 58px; min-height: 100vh; }
+  .works-page-hero { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem 3rem; }
+  .works-page-grid { max-width: 1100px; margin: 0 auto; padding: 0 2rem 5rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
+  .works-page-card { background: var(--card-bg); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); cursor: pointer; transition: transform 0.25s, box-shadow 0.25s; }
+  .works-page-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.12); }
+  .works-page-card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; background: #e8e4db; }
+  .works-page-card-body { padding: 1.4rem 1.6rem; }
+  .works-page-card-tag { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 0.5rem; }
+  .works-page-card h3 { font-family: var(--serif); font-size: 1.4rem; margin-bottom: 0.6rem; line-height: 1.2; }
+  .works-page-card p { font-size: 0.88rem; color: var(--fg2); line-height: 1.6; }
+
+  /* ─── PROJECT DETAIL ─── */
+  .project-page { padding-top: 58px; min-height: 100vh; }
+  .project-back { max-width: 1100px; margin: 0 auto; padding: 2rem 2rem 0; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.88rem; color: var(--fg2); cursor: pointer; transition: color 0.2s; background: none; border: none; font-family: var(--sans); padding: 0; }
+  .back-btn:hover { color: var(--fg); }
+  .project-header { max-width: 1100px; margin: 0 auto; padding: 2.5rem 2rem 0; }
+  .project-header .project-tag { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 0.8rem; }
+  .project-header h1 { font-family: var(--serif); font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+  .project-header p { max-width: 680px; color: var(--fg2); font-size: 1.05rem; line-height: 1.75; margin-bottom: 2.5rem; }
+  .project-hero-img { max-width: 1100px; margin: 2rem auto 0; padding: 0 2rem; }
+  .project-hero-img img { width: 100%; border-radius: var(--radius); display: block; background: #e8e4db; }
+  .project-body { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; }
+  .project-overview { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; margin-bottom: 4rem; padding-bottom: 4rem; border-bottom: 1px solid var(--border); }
+  .project-meta h4 { font-family: var(--serif); font-size: 1.3rem; margin-bottom: 1.5rem; }
+  .project-meta-item { margin-bottom: 1rem; }
+  .project-meta-label { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg3); font-weight: 500; margin-bottom: 0.2rem; }
+  .project-meta-val { font-size: 0.95rem; color: var(--fg); font-weight: 500; }
+  .project-overview-text h4 { font-family: var(--serif); font-size: 1.3rem; margin-bottom: 1rem; }
+  .project-overview-text p { color: var(--fg2); line-height: 1.8; font-size: 0.97rem; margin-bottom: 1rem; }
+  .project-overview-text strong { color: var(--fg); }
+  .project-gallery-label { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 1.2rem; }
+  .project-gallery-title { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.8rem); letter-spacing: -0.02em; margin-bottom: 2.5rem; }
+  .project-gallery { display: grid; gap: 1.5rem; }
+  .project-gallery img { width: 100%; border-radius: var(--radius); display: block; background: #e8e4db; }
+  .project-gallery .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .project-gallery .row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; }
+  .project-nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); flex-wrap: wrap; gap: 1rem; }
+  .project-nav-btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--serif); font-size: 1rem; color: var(--fg); cursor: pointer; background: none; border: none; font-style: italic; transition: color 0.2s; padding: 0; }
+  .project-nav-btn:hover { color: var(--accent); }
+
+  /* ─── PLAYGROUND ─── */
+  .playground-page { padding-top: 58px; min-height: 100vh; }
+  .playground-header { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem 3rem; }
+  .playground-header h1 { font-family: var(--serif); font-size: clamp(3rem, 8vw, 6rem); letter-spacing: -0.03em; line-height: 1.0; margin-bottom: 1.2rem; }
+  .playground-header p { color: var(--fg2); font-size: 1.05rem; max-width: 560px; line-height: 1.75; }
+  .playground-grid { max-width: 1100px; margin: 0 auto; padding: 1rem 2rem 5rem; display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.2rem; }
+  .pg-item { border-radius: var(--radius); overflow: hidden; background: #e8e4db; }
+  .pg-item img, .pg-item video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pg-item video { background: #111; }
+  .pg-span-4  { grid-column: span 4; }
+  .pg-span-5  { grid-column: span 5; }
+  .pg-span-6  { grid-column: span 6; }
+  .pg-span-7  { grid-column: span 7; }
+  .pg-span-8  { grid-column: span 8; }
+  .pg-span-12 { grid-column: span 12; }
+  .pg-h-sq   { aspect-ratio: 1/1; }
+  .pg-h-port { aspect-ratio: 4/5; }
+  .pg-h-land { aspect-ratio: 16/9; }
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 768px) {
-    nav { padding: 0 1.2rem; }
-    .nav-links li:not(:last-child) { display: none; }
+    nav { padding: 0 1rem; }
+    .nav-links li:not(:last-child):not(:nth-last-child(2)) { display: none; }
     section { padding: 3.5rem 1.2rem; }
     .about-grid { grid-template-columns: 1fr; }
     .works-grid { grid-template-columns: 1fr; }
     footer { padding: 1.2rem; }
+    .project-overview { grid-template-columns: 1fr; gap: 2rem; }
+    .project-gallery .row-2, .project-gallery .row-3 { grid-template-columns: 1fr; }
+    .works-page-grid { grid-template-columns: 1fr; }
+    .playground-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    .pg-span-4, .pg-span-5, .pg-span-6, .pg-span-7, .pg-span-8, .pg-span-12 { grid-column: span 2; }
+    .lang-btn { padding: 4px 8px; }
   }
 </style>
 </head>
@@ -402,158 +241,156 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">Diana Mansilla</a>
+  <a class="nav-logo" onclick="showPage('home')">Diana Mansilla</a>
   <ul class="nav-links">
-    <li><a href="#trabajos">Trabajos</a></li>
-    <li><a href="#sobre-mi">Sobre mí</a></li>
-    <li><a href="#contacto" class="nav-cta">¡Hablemos!</a></li>
+    <li><a onclick="showPage('works')" data-es="Trabajos" data-en="Works">Trabajos</a></li>
+    <li><a onclick="showPage('playground')">Playground</a></li>
+    <li><a onclick="showPage('home'); setTimeout(()=>document.getElementById('sobre-mi')?.scrollIntoView({behavior:'smooth'}),100)" data-es="Sobre mí" data-en="About">Sobre mí</a></li>
+    <li><a onclick="showPage('home'); setTimeout(()=>document.getElementById('contacto')?.scrollIntoView({behavior:'smooth'}),100)" class="nav-cta" data-es="¡Hablemos!" data-en="Let's talk!">¡Hablemos!</a></li>
+    <li>
+      <div class="lang-switch">
+        <button class="lang-btn active" id="btn-es" onclick="setLang('es')">ES</button>
+        <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      </div>
+    </li>
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- ══════════════════════════════════════════
+     PAGE: HOME
+══════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
 <section class="hero" style="max-width:100%; padding-left:2rem; padding-right:2rem;">
-  <p class="hero-eyebrow">Portfolio creativo</p>
-  <h1>Portfolio<br><em>Creativo</em></h1>
-  <p class="hero-desc">
-    Soy diseñadora gráfica enfocada en diseño visual, ilustración y motion graphics. Creo visuales digitales audaces y reflexivos que combinan concepto, oficio y narrativa en distintas plataformas.
+  <p class="hero-eyebrow" data-es="Diana Mansilla" data-en="Diana Mansilla">Diana Mansilla</p>
+  <h1 data-es="Portfolio<br><em>Creativo</em>" data-en="Creative<br><em>Portfolio</em>">Portfolio<br><em>Creativo</em></h1>
+  <p class="hero-desc" data-es="Soy diseñadora gráfica enfocada en diseño visual, ilustración y motion graphics. Creo visuales digitales audaces y reflexivos que combinan concepto, oficio y narrativa en distintas plataformas." data-en="I'm a graphic designer focused on visual design, illustration, and motion graphics. I craft bold and thoughtful digital visuals that blend concept, craft, and storytelling across platforms.">
+    Diseñadora gráfica enfocada en diseño visual, ilustración y motion graphics. Creo visuales digitales audaces y reflexivos que combinan concepto, oficio y narrativa en distintas plataformas.
   </p>
   <div class="hero-btns">
-    <a href="#trabajos" class="btn-primary">Ver trabajos →</a>
-    <a href="#contacto" class="btn-secondary">Contacto</a>
+    <button class="btn-primary" onclick="showPage('works')" data-es="Ver trabajos →" data-en="View works →">Ver trabajos →</button>
+    <button class="btn-secondary" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})" data-es="Contacto" data-en="Contact">Contacto</button>
   </div>
 </section>
 
-<!-- TICKER -->
 <div class="ticker-wrap">
-  <div class="ticker-track">
-    <span class="ticker-item">Diseño de Marca <span class="ticker-dot">·</span></span>
-    <span class="ticker-item">Identidad Visual <span class="ticker-dot">·</span></span>
-    <span class="ticker-item">Motion Graphics <span class="ticker-dot">·</span></span>
-    <span class="ticker-item">Ilustración <span class="ticker-dot">·</span></span>
-    <span class="ticker-item">Diseño Editorial <span class="ticker-dot">·</span></span>
-    <span class="ticker-item">Diseño UI <span class="ticker-dot">·</span></span>
-    <span class="ticker-item">Dirección de Arte <span class="ticker-dot">·</span></span>
-    <span class="ticker-item">Redes Sociales <span class="ticker-dot">·</span></span>
-    <span class="ticker-item">Diseño Web <span class="ticker-dot">·</span></span>
-    <!-- duplicate for seamless loop -->
-    <span class="ticker-item">Diseño de Marca <span class="ticker-dot">·</span></span>
-    <span class="ticker-item">Identidad Visual <span class="ticker-dot">·</span></span>
-    <span class="ticker-item">Motion Graphics <span class="ticker-dot">·</span></span>
-    <span class="ticker-item">Ilustración <span class="ticker-dot">·</span></span>
-    <span class="ticker-item">Diseño Editorial <span class="ticker-dot">·</span></span>
-    <span class="ticker-item">Diseño UI <span class="ticker-dot">·</span></span>
-    <span class="ticker-item">Dirección de Arte <span class="ticker-dot">·</span></span>
-    <span class="ticker-item">Redes Sociales <span class="ticker-dot">·</span></span>
-    <span class="ticker-item">Diseño Web <span class="ticker-dot">·</span></span>
+  <div class="ticker-track" id="ticker-track">
+    <span class="ticker-item" data-es="Diseño de Marca" data-en="Brand Design">Diseño de Marca <span class="ticker-dot">·</span></span>
+    <span class="ticker-item" data-es="Identidad Visual" data-en="Visual Identity">Identidad Visual <span class="ticker-dot">·</span></span>
+    <span class="ticker-item" data-es="Motion Graphics" data-en="Motion Graphics">Motion Graphics <span class="ticker-dot">·</span></span>
+    <span class="ticker-item" data-es="Ilustración" data-en="Illustration">Ilustración <span class="ticker-dot">·</span></span>
+    <span class="ticker-item" data-es="Diseño Editorial" data-en="Editorial Design">Diseño Editorial <span class="ticker-dot">·</span></span>
+    <span class="ticker-item" data-es="Diseño UI" data-en="UI Design">Diseño UI <span class="ticker-dot">·</span></span>
+    <span class="ticker-item" data-es="Dirección de Arte" data-en="Art Direction">Dirección de Arte <span class="ticker-dot">·</span></span>
+    <span class="ticker-item" data-es="Redes Sociales" data-en="Social Media">Redes Sociales <span class="ticker-dot">·</span></span>
+    <span class="ticker-item" data-es="Diseño Web" data-en="Web Design">Diseño Web <span class="ticker-dot">·</span></span>
+    <span class="ticker-item" data-es="Diseño de Marca" data-en="Brand Design">Diseño de Marca <span class="ticker-dot">·</span></span>
+    <span class="ticker-item" data-es="Identidad Visual" data-en="Visual Identity">Identidad Visual <span class="ticker-dot">·</span></span>
+    <span class="ticker-item" data-es="Motion Graphics" data-en="Motion Graphics">Motion Graphics <span class="ticker-dot">·</span></span>
+    <span class="ticker-item" data-es="Ilustración" data-en="Illustration">Ilustración <span class="ticker-dot">·</span></span>
+    <span class="ticker-item" data-es="Diseño Editorial" data-en="Editorial Design">Diseño Editorial <span class="ticker-dot">·</span></span>
+    <span class="ticker-item" data-es="Diseño UI" data-en="UI Design">Diseño UI <span class="ticker-dot">·</span></span>
+    <span class="ticker-item" data-es="Dirección de Arte" data-en="Art Direction">Dirección de Arte <span class="ticker-dot">·</span></span>
+    <span class="ticker-item" data-es="Redes Sociales" data-en="Social Media">Redes Sociales <span class="ticker-dot">·</span></span>
+    <span class="ticker-item" data-es="Diseño Web" data-en="Web Design">Diseño Web <span class="ticker-dot">·</span></span>
   </div>
 </div>
 
-<!-- GALLERY SCROLL -->
 <div style="padding: 4rem 0 0; overflow:hidden;">
   <div style="max-width:1100px; margin: 0 auto 1.5rem; padding: 0 2rem;">
-    <p class="section-label">Galería</p>
-    <h2 class="section-title">El diseño en acción</h2>
+    <p class="section-label" data-es="Galería" data-en="Gallery">Galería</p>
+    <h2 class="section-title" data-es="El diseño en acción" data-en="Design in action">El diseño en acción</h2>
   </div>
   <div class="gallery-wrap">
     <div class="gallery-track">
-      <img class="gallery-img" src="https://framerusercontent.com/images/Qzbom9cJ0HASHiENNFPgGOLz08.png" alt="Trabajo 1">
-      <img class="gallery-img" src="https://framerusercontent.com/images/XIxLYwUm4SLSEpbnAdanNZOSi8.jpg" alt="Trabajo 2">
-      <img class="gallery-img" src="https://framerusercontent.com/images/IuEXSxMD68Lac2LV1h3v7Qi9k.png" alt="Trabajo 3">
-      <img class="gallery-img" src="https://framerusercontent.com/images/sTOsr7wVKosQLDd0DLFwc2HOZHU.png" alt="Trabajo 4">
-      <img class="gallery-img" src="https://framerusercontent.com/images/WWGTG9HAb9y35xDZRwJ16vE7Y.png" alt="Trabajo 5">
-      <!-- duplicate -->
-      <img class="gallery-img" src="https://framerusercontent.com/images/Qzbom9cJ0HASHiENNFPgGOLz08.png" alt="Trabajo 1">
-      <img class="gallery-img" src="https://framerusercontent.com/images/XIxLYwUm4SLSEpbnAdanNZOSi8.jpg" alt="Trabajo 2">
-      <img class="gallery-img" src="https://framerusercontent.com/images/IuEXSxMD68Lac2LV1h3v7Qi9k.png" alt="Trabajo 3">
-      <img class="gallery-img" src="https://framerusercontent.com/images/sTOsr7wVKosQLDd0DLFwc2HOZHU.png" alt="Trabajo 4">
-      <img class="gallery-img" src="https://framerusercontent.com/images/WWGTG9HAb9y35xDZRwJ16vE7Y.png" alt="Trabajo 5">
+      <img class="gallery-img" src="https://framerusercontent.com/images/Qzbom9cJ0HASHiENNFPgGOLz08.png" alt="">
+      <img class="gallery-img" src="https://framerusercontent.com/images/XIxLYwUm4SLSEpbnAdanNZOSi8.jpg" alt="">
+      <img class="gallery-img" src="https://framerusercontent.com/images/IuEXSxMD68Lac2LV1h3v7Qi9k.png" alt="">
+      <img class="gallery-img" src="https://framerusercontent.com/images/sTOsr7wVKosQLDd0DLFwc2HOZHU.png" alt="">
+      <img class="gallery-img" src="https://framerusercontent.com/images/WWGTG9HAb9y35xDZRwJ16vE7Y.png" alt="">
+      <img class="gallery-img" src="https://framerusercontent.com/images/Qzbom9cJ0HASHiENNFPgGOLz08.png" alt="">
+      <img class="gallery-img" src="https://framerusercontent.com/images/XIxLYwUm4SLSEpbnAdanNZOSi8.jpg" alt="">
+      <img class="gallery-img" src="https://framerusercontent.com/images/IuEXSxMD68Lac2LV1h3v7Qi9k.png" alt="">
+      <img class="gallery-img" src="https://framerusercontent.com/images/sTOsr7wVKosQLDd0DLFwc2HOZHU.png" alt="">
+      <img class="gallery-img" src="https://framerusercontent.com/images/WWGTG9HAb9y35xDZRwJ16vE7Y.png" alt="">
     </div>
   </div>
 </div>
 
-<!-- WORKS -->
 <section id="trabajos">
-  <p class="section-label">Selección de trabajos</p>
-  <h2 class="section-title">Un vistazo a mis proyectos</h2>
-  <p class="section-sub">Proyectos de diseño gráfico, identidad visual y diseño editorial que muestran mi proceso creativo.</p>
-
+  <p class="section-label" data-es="Selección de trabajos" data-en="Selected works">Selección de trabajos</p>
+  <h2 class="section-title" data-es="Un vistazo a mis proyectos" data-en="A glimpse of my projects">Un vistazo a mis proyectos</h2>
+  <p class="section-sub" data-es="Proyectos de diseño gráfico, identidad visual y diseño editorial que muestran mi proceso creativo." data-en="Graphic design, visual identity, and editorial projects that showcase my creative process.">Proyectos de diseño gráfico, identidad visual y diseño editorial que muestran mi proceso creativo.</p>
   <div class="works-grid">
-
-    <a href="#" class="work-card">
+    <div class="work-card" onclick="showProject('festival-lenta')">
       <img class="work-card-img" src="https://framerusercontent.com/images/8RZRwKBNulp7Ibb7LB19MgDGPM.png" alt="Festival Lenta">
       <div class="work-card-body">
-        <p class="work-card-tag">Diseño de Marca</p>
+        <p class="work-card-tag" data-es="Diseño de Marca" data-en="Brand Design">Diseño de Marca</p>
         <h3>Festival Lenta</h3>
-        <p>Sistema visual cohesivo para un festival de slow food que explora la alimentación consciente, la sustentabilidad y las prácticas gastronómicas tradicionales. Incluye afiches, entradas, merchandising y pieza editorial.</p>
+        <p data-es="Sistema visual cohesivo para un festival de slow food que explora la alimentación consciente, la sustentabilidad y las prácticas gastronómicas tradicionales. Incluye afiches, entradas, merchandising y pieza editorial." data-en="Cohesive visual system for a slow food festival exploring conscious eating, sustainability, and traditional culinary practices. Includes posters, tickets, merchandising, and an editorial piece.">Sistema visual cohesivo para un festival de slow food que explora la alimentación consciente, la sustentabilidad y las prácticas gastronómicas tradicionales. Incluye afiches, entradas, merchandising y pieza editorial.</p>
       </div>
-    </a>
-
-    <a href="#" class="work-card">
+    </div>
+    <div class="work-card" onclick="showProject('laluzincidente')">
       <img class="work-card-img" src="https://framerusercontent.com/images/1n7hTx2KDQqSmI6NboIsvfr4cVI.png" alt="La luz incidente">
       <div class="work-card-body">
-        <p class="work-card-tag">Proyecto Universitario</p>
+        <p class="work-card-tag" data-es="Proyecto Universitario" data-en="University Project">Proyecto Universitario</p>
         <h3>La luz incidente</h3>
-        <p>Proyecto académico basado en el análisis del cine argentino como referente cultural y visual. Exploración de cómo el cine refleja identidad, historia y perspectivas artísticas locales, traducidas en un afiche cinematográfico contemporáneo.</p>
+        <p data-es="Proyecto académico basado en el análisis del cine argentino como referente cultural y visual. Exploración de cómo el cine refleja identidad, historia y perspectivas artísticas locales, traducidas en un afiche cinematográfico contemporáneo." data-en="Academic project based on the analysis of Argentine cinema as a cultural and visual reference. Exploration of how cinema reflects local identity, history, and artistic perspectives, translated into a contemporary movie poster.">Proyecto académico basado en el análisis del cine argentino como referente cultural y visual. Exploración de cómo el cine refleja identidad, historia y perspectivas artísticas locales, traducidas en un afiche cinematográfico contemporáneo.</p>
       </div>
-    </a>
-
-    <a href="#" class="work-card">
+    </div>
+    <div class="work-card" onclick="showProject('festival-nutra')">
       <img class="work-card-img" src="https://framerusercontent.com/images/jtk21LERHjBCtGFdhEmc573lp0.png" alt="Festival Nutra">
       <div class="work-card-body">
-        <p class="work-card-tag">Diseño de Marca</p>
+        <p class="work-card-tag" data-es="Diseño de Marca" data-en="Brand Design">Diseño de Marca</p>
         <h3>Festival Nutra</h3>
-        <p>Identidad visual completa para un festival gastronómico centrado en la nutrición y el bienestar. Diseño de sistema gráfico unificado con énfasis en la comunicación clara y el impacto visual.</p>
+        <p data-es="Identidad visual completa para un festival gastronómico centrado en la nutrición y el bienestar. Diseño de sistema gráfico unificado con énfasis en la comunicación clara y el impacto visual." data-en="Complete visual identity for a gastronomic festival focused on nutrition and well-being. Unified graphic system design with an emphasis on clear communication and visual impact.">Identidad visual completa para un festival gastronómico centrado en la nutrición y el bienestar. Diseño de sistema gráfico unificado con énfasis en la comunicación clara y el impacto visual.</p>
       </div>
-    </a>
-
+    </div>
   </div>
 </section>
 
-<!-- SKILLS -->
 <div class="skills-section">
   <div class="skills-inner">
-    <p class="section-label">Especialidades</p>
-    <h2 class="section-title">Lo que traigo a la mesa</h2>
-    <p class="section-sub" style="color:rgba(255,255,255,0.55);">Experiencias digitales que capturan la atención de los usuarios y ayudan a tu proyecto a destacarse desde el primer día.</p>
+    <p class="section-label" data-es="Especialidades" data-en="Specialties">Especialidades</p>
+    <h2 class="section-title" data-es="Lo que traigo a la mesa" data-en="What I bring to the table">Lo que traigo a la mesa</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,0.55);" data-es="Experiencias digitales que capturan la atención de los usuarios y ayudan a tu proyecto a destacarse desde el primer día." data-en="Digital experiences that capture users' attention and help your project stand out from day one.">Experiencias digitales que capturan la atención de los usuarios y ayudan a tu proyecto a destacarse desde el primer día.</p>
     <div class="skills-grid">
-      <span class="skill-pill">Diseño para Redes Sociales</span>
+      <span class="skill-pill" data-es="Diseño para Redes Sociales" data-en="Social Media Design">Diseño para Redes Sociales</span>
       <span class="skill-pill">Branding</span>
-      <span class="skill-pill">Diseño Visual</span>
-      <span class="skill-pill">Diseño de Interfaz de Usuario</span>
-      <span class="skill-pill">Diseño Web Visual</span>
-      <span class="skill-pill">Ilustración</span>
-      <span class="skill-pill">Dirección de Arte (Junior)</span>
+      <span class="skill-pill" data-es="Diseño Visual" data-en="Visual Design">Diseño Visual</span>
+      <span class="skill-pill" data-es="Diseño de Interfaz de Usuario" data-en="User Interface Design">Diseño de Interfaz de Usuario</span>
+      <span class="skill-pill" data-es="Diseño Web Visual" data-en="Visual Web Design">Diseño Web Visual</span>
+      <span class="skill-pill" data-es="Ilustración" data-en="Illustration">Ilustración</span>
+      <span class="skill-pill" data-es="Dirección de Arte (Junior)" data-en="Art Direction (Junior)">Dirección de Arte (Junior)</span>
       <span class="skill-pill">Motion Graphics</span>
-      <span class="skill-pill">Diseño Editorial</span>
+      <span class="skill-pill" data-es="Diseño Editorial" data-en="Editorial Design">Diseño Editorial</span>
     </div>
   </div>
 </div>
 
-<!-- ABOUT -->
 <section id="sobre-mi">
-  <p class="section-label">Detrás del lienzo</p>
-  <h2 class="section-title">Conóceme</h2>
+  <p class="section-label" data-es="Detrás del lienzo" data-en="Behind the canvas">Detrás del lienzo</p>
+  <h2 class="section-title" data-es="Conóceme" data-en="Get to know me">Conóceme</h2>
   <div class="about-grid">
     <div class="about-text">
-      <p>Soy <strong>Diseñadora Gráfica</strong> de Buenos Aires, Argentina, actualmente cursando la carrera de Diseño Gráfico en la Universidad de Buenos Aires. Ayudo a marcas y proyectos a convertir ideas en soluciones visuales claras y funcionales.</p>
-      <p>Desde identidad visual y diseño gráfico hasta contenido digital y multimedia, me enfoco en la comunicación y la resolución de problemas, no solo en hacer que las cosas se vean bonitas.</p>
-      <p>Trabajo con estructura, intención y atención al detalle, apuntando a diseños que tengan un propósito real y funcionen en el mundo real. Me adapto a distintos estilos y necesidades, priorizando siempre la claridad, la consistencia y los resultados.</p>
-      <p>Cuando no estoy diseñando, me inspiro observando, investigando y aprendiendo cosas nuevas. Me encanta tocar el ukelele y probar recetas nuevas en casa. Mi plato favorito es el sushi con salmón.</p>
-      <p>Creo que el gran diseño viene de la precisión, la consistencia y una ejecución sólida: equilibrar velocidad y calidad para entregar resultados confiables a escala.</p>
+      <p data-es="Soy una <strong>Diseñadora Gráfica</strong> de Buenos Aires, Argentina, actualmente cursando la carrera de Diseño Gráfico en la Universidad de Buenos Aires. Ayudo a marcas y proyectos a convertir ideas en soluciones visuales claras y funcionales." data-en="I'm a <strong>Graphic Designer</strong> from Buenos Aires, Argentina, currently studying Graphic Design at the University of Buenos Aires. I help brands and projects turn ideas into clear and functional visual solutions.">Soy <strong>Diseñadora Gráfica</strong> de Buenos Aires, Argentina, actualmente cursando la carrera de Diseño Gráfico en la Universidad de Buenos Aires. Ayudo a marcas y proyectos a convertir ideas en soluciones visuales claras y funcionales.</p>
+      <p data-es="Desde identidad visual y diseño gráfico hasta contenido digital y multimedia, me enfoco en la comunicación y la resolución de problemas, no solo en hacer que las cosas se vean bonitas." data-en="From visual identity and graphic design to digital and multimedia content, I focus on communication and problem-solving, not just making things look pretty.">Desde identidad visual y diseño gráfico hasta contenido digital y multimedia, me enfoco en la comunicación y la resolución de problemas, no solo en hacer que las cosas se vean bonitas.</p>
+      <p data-es="Trabajo con estructura, intención y atención al detalle, apuntando a diseños que tengan un propósito real y funcionen en el mundo real. Me adapto a distintos estilos y necesidades, priorizando siempre la claridad, la consistencia y los resultados." data-en="I work with structure, intention, and attention to detail, aiming for designs that have a real purpose and work in the real world. I adapt to different styles and needs, always prioritizing clarity, consistency, and results.">Trabajo con estructura, intención y atención al detalle, apuntando a diseños que tengan un propósito real y funcionen en el mundo real. Me adapto a distintos estilos y necesidades, priorizando siempre la claridad, la consistencia y los resultados.</p>
+      <p data-es="Cuando no estoy diseñando, me inspiro observando, investigando y aprendiendo cosas nuevas. Me encanta tocar el ukelele y probar recetas nuevas en casa. Mi plato favorito es el sushi con salmón." data-en="When I'm not designing, I find inspiration by observing, researching, and learning new things. I love playing the ukulele and trying new recipes at home. My favorite dish is salmon sushi.">Cuando no estoy diseñando, me inspiro observando, investigando y aprendiendo cosas nuevas. Me encanta tocar el ukelele y probar recetas nuevas en casa. Mi plato favorito es el sushi con salmón.</p>
+      <p data-es="Creo que el gran diseño viene de la precisión, la consistencia y una ejecución sólida: equilibrar velocidad y calidad para entregar resultados confiables a escala." data-en="I believe great design comes from precision, consistency, and solid execution — balancing speed and quality to deliver reliable results at scale.">Creo que el gran diseño viene de la precisión, la consistencia y una ejecución sólida: equilibrar velocidad y calidad para entregar resultados confiables a escala.</p>
     </div>
     <div class="about-imgs">
       <img class="about-img" src="https://framerusercontent.com/images/t4IgMebE0pchQy5aiKxaHcP3DA.png" alt="Diana Mansilla">
-      <img class="about-img" src="https://framerusercontent.com/images/L6lgP1VkHXpTP8N1cJSDqr5Sw.jpeg" alt="Viajes e inspiración">
+      <img class="about-img" src="https://framerusercontent.com/images/L6lgP1VkHXpTP8N1cJSDqr5Sw.jpeg" alt="">
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
 <div id="contacto" style="background: var(--card-bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
   <div class="contact-section">
-    <p class="section-label" style="text-align:center;">Contacto</p>
-    <h2 class="section-title">¿Lista para crear algo increíble?</h2>
-    <p class="section-sub">Me encantaría conectar contigo ♡</p>
+    <p class="section-label" style="text-align:center;" data-es="Contacto" data-en="Contact">Contacto</p>
+    <h2 class="section-title" data-es="¿Listx para crear algo increíble?" data-en="Ready to create something amazing?">¿Lista para crear algo increíble?</h2>
+    <p class="section-sub" data-es="Me encantaría conectar contigo ♡" data-en="I'd love to connect with you ♡">Me encantaría conectar contigo ♡</p>
     <div class="contact-links">
       <a href="mailto:dianamans.dg@gmail.com" class="contact-link">
         <span class="contact-link-label">Email</span>
@@ -571,41 +408,417 @@
   </div>
 </div>
 
-<!-- FAQ -->
 <section>
-  <p class="section-label">Preguntas frecuentes</p>
-  <h2 class="section-title">¿Tenés preguntas?<br>Tengo respuestas.</h2>
+  <p class="section-label" data-es="Preguntas frecuentes" data-en="FAQ">Preguntas frecuentes</p>
+  <h2 class="section-title" data-es="¿Tenés preguntas?<br>Tengo respuestas." data-en="Got questions?<br>I've got answers.">¿Tenés preguntas?<br>Tengo respuestas.</h2>
   <ul class="faq-list">
     <li class="faq-item">
-      <button class="faq-q">¿Cuál es tu proceso de diseño habitual? <span class="arrow">+</span></button>
-      <div class="faq-a">Comienzo con una fase de investigación y comprensión del brief, luego paso a exploración conceptual y bocetos. Después desarrollo propuestas visuales, las refino según el feedback y entrego los archivos finales listos para usar.</div>
+      <button class="faq-q">
+        <span data-es="¿Cuál es tu proceso de diseño habitual?" data-en="What is your usual design process?">¿Cuál es tu proceso de diseño habitual?</span>
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-a" data-es="Comienzo con una fase de investigación y comprensión del brief, luego paso a exploración conceptual y bocetos. Después desarrollo propuestas visuales, las refino según el feedback y entrego los archivos finales listos para usar." data-en="I start with a research and brief-understanding phase, then move on to conceptual exploration and sketching. I then develop visual proposals, refine them based on feedback, and deliver the final files ready to use.">Comienzo con una fase de investigación y comprensión del brief, luego paso a exploración conceptual y bocetos. Después desarrollo propuestas visuales, las refino según el feedback y entrego los archivos finales listos para usar.</div>
     </li>
     <li class="faq-item">
-      <button class="faq-q">¿Cuánto tiempo suele llevar un proyecto? <span class="arrow">+</span></button>
-      <div class="faq-a">Depende del alcance y la complejidad. Un proyecto de identidad visual puede llevar 2–4 semanas; un proyecto editorial más extenso, entre 4 y 8 semanas. Siempre trabajo con plazos claros acordados desde el inicio.</div>
+      <button class="faq-q">
+        <span data-es="¿Cuánto tiempo suele llevar un proyecto?" data-en="How long does a project usually take?">¿Cuánto tiempo suele llevar un proyecto?</span>
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-a" data-es="Depende del alcance y la complejidad. Un proyecto de identidad visual puede llevar 2–4 semanas; un proyecto editorial más extenso, entre 4 y 8 semanas. Siempre trabajo con plazos claros acordados desde el inicio." data-en="It depends on the scope and complexity. A visual identity project can take 2–4 weeks; a more extensive editorial project, between 4 and 8 weeks. I always work with clear deadlines agreed upon from the start.">Depende del alcance y la complejidad. Un proyecto de identidad visual puede llevar 2–4 semanas; un proyecto editorial más extenso, entre 4 y 8 semanas. Siempre trabajo con plazos claros acordados desde el inicio.</div>
     </li>
     <li class="faq-item">
-      <button class="faq-q">¿También te encargás del desarrollo? <span class="arrow">+</span></button>
-      <div class="faq-a">Mi especialidad es el diseño gráfico y visual. Para proyectos que requieran desarrollo web o de aplicaciones, puedo colaborar con desarrolladores de confianza o trabajar con herramientas no-code como Framer.</div>
+      <button class="faq-q">
+        <span data-es="¿También te encargás del desarrollo?" data-en="Do you also handle development?">¿También te encargás del desarrollo?</span>
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-a" data-es="Mi especialidad es el diseño gráfico y visual. Para proyectos que requieran desarrollo web o de aplicaciones, puedo colaborar con desarrolladores de confianza o trabajar con herramientas no-code como Framer." data-en="My specialty is graphic and visual design. For projects requiring web or app development, I can collaborate with trusted developers or work with no-code tools like Framer.">Mi especialidad es el diseño gráfico y visual. Para proyectos que requieran desarrollo web o de aplicaciones, puedo colaborar con desarrolladores de confianza o trabajar con herramientas no-code como Framer.</div>
     </li>
     <li class="faq-item">
-      <button class="faq-q">¿Podés ayudarnos con el pitch deck? <span class="arrow">+</span></button>
-      <div class="faq-a">¡Sí! El diseño de presentaciones y pitch decks es parte de lo que ofrezco. Puedo ayudarte a comunicar tu propuesta de valor de manera clara y visualmente impactante.</div>
+      <button class="faq-q">
+        <span data-es="¿Podés ayudarnos con el pitch deck?" data-en="Can you help us with a pitch deck?">¿Podés ayudarnos con el pitch deck?</span>
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-a" data-es="¡Sí! El diseño de presentaciones y pitch decks es parte de lo que ofrezco. Puedo ayudarte a comunicar tu propuesta de valor de manera clara y visualmente impactante." data-en="Yes! Presentation and pitch deck design is part of what I offer. I can help you communicate your value proposition in a clear and visually impactful way.">¡Sí! El diseño de presentaciones y pitch decks es parte de lo que ofrezco. Puedo ayudarte a comunicar tu propuesta de valor de manera clara y visualmente impactante.</div>
     </li>
     <li class="faq-item">
-      <button class="faq-q">¿Cómo empezamos? <span class="arrow">+</span></button>
-      <div class="faq-a">Escribime por email o LinkedIn con una breve descripción de tu proyecto. Coordinamos una llamada para conocernos, entender tus necesidades y definir los próximos pasos.</div>
+      <button class="faq-q">
+        <span data-es="¿Cómo empezamos?" data-en="How do we get started?">¿Cómo empezamos?</span>
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-a" data-es="Escribime por email o LinkedIn con una breve descripción de tu proyecto. Coordinamos una llamada para conocernos, entender tus necesidades y definir los próximos pasos." data-en="Send me an email or LinkedIn message with a brief description of your project. We'll schedule a call to get to know each other, understand your needs, and define the next steps.">Escribime por email o LinkedIn con una breve descripción de tu proyecto. Coordinamos una llamada para conocernos, entender tus necesidades y definir los próximos pasos.</div>
     </li>
   </ul>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <a href="#">Diana Mansilla &copy; 2026</a>
-  <span>Diseñadora Gráfica · Buenos Aires, Argentina</span>
+  <a onclick="showPage('home')">Diana Mansilla &copy; 2026</a>
+  <span data-es="Diseñadora Gráfica · Buenos Aires, Argentina" data-en="Graphic Designer · Buenos Aires, Argentina">Diseñadora Gráfica · Buenos Aires, Argentina</span>
 </footer>
 
+</div><!-- /page-home -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: WORKS LIST
+══════════════════════════════════════════ -->
+<div id="page-works" class="page">
+  <div class="works-page">
+    <div class="works-page-hero">
+      <p class="section-label" data-es="Selección de trabajos" data-en="Selected works">Selección de trabajos</p>
+      <h1 class="section-title" data-es="Mis Proyectos" data-en="My Projects">Mis Proyectos</h1>
+      <p class="section-sub" data-es="Diseño gráfico, identidad visual y diseño editorial que muestran mi proceso creativo." data-en="Graphic design, visual identity, and editorial design that showcase my creative process.">Diseño gráfico, identidad visual y diseño editorial que muestran mi proceso creativo.</p>
+    </div>
+    <div class="works-page-grid">
+      <div class="works-page-card" onclick="showProject('festival-lenta')">
+        <img src="https://framerusercontent.com/images/8RZRwKBNulp7Ibb7LB19MgDGPM.png" alt="Festival Lenta">
+        <div class="works-page-card-body">
+          <p class="works-page-card-tag" data-es="Diseño de Marca" data-en="Brand Design">Diseño de Marca</p>
+          <h3>Festival Lenta</h3>
+          <p data-es="Sistema visual cohesivo para un festival de slow food. Afiches, entradas, merchandising y pieza editorial, todo bajo una identidad unificada." data-en="Cohesive visual system for a slow food festival. Posters, tickets, merchandising, and an editorial piece, all under a unified identity.">Sistema visual cohesivo para un festival de slow food. Afiches, entradas, merchandising y pieza editorial, todo bajo una identidad unificada.</p>
+        </div>
+      </div>
+      <div class="works-page-card" onclick="showProject('laluzincidente')">
+        <img src="https://framerusercontent.com/images/1n7hTx2KDQqSmI6NboIsvfr4cVI.png" alt="La luz incidente">
+        <div class="works-page-card-body">
+          <p class="works-page-card-tag" data-es="Proyecto Universitario" data-en="University Project">Proyecto Universitario</p>
+          <h3>La luz incidente</h3>
+          <p data-es="Exploración del cine argentino como referente cultural y visual, traducida en un afiche cinematográfico contemporáneo con tipografía expresiva." data-en="Exploration of Argentine cinema as a cultural and visual reference, translated into a contemporary movie poster with expressive typography.">Exploración del cine argentino como referente cultural y visual, traducida en un afiche cinematográfico contemporáneo con tipografía expresiva.</p>
+        </div>
+      </div>
+      <div class="works-page-card" onclick="showProject('festival-nutra')">
+        <img src="https://framerusercontent.com/images/jtk21LERHjBCtGFdhEmc573lp0.png" alt="Festival Nutra">
+        <div class="works-page-card-body">
+          <p class="works-page-card-tag" data-es="Diseño de Marca" data-en="Brand Design">Diseño de Marca</p>
+          <h3>Festival Nutra</h3>
+          <p data-es="Identidad visual para un festival gastronómico centrado en nutrición y bienestar. Sistema gráfico flexible aplicado en afiches, redes y materiales on-site." data-en="Visual identity for a gastronomic festival focused on nutrition and well-being. Flexible graphic system applied to posters, social media, and on-site materials.">Identidad visual para un festival gastronómico centrado en nutrición y bienestar. Sistema gráfico flexible aplicado en afiches, redes y materiales on-site.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /page-works -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: FESTIVAL LENTA
+══════════════════════════════════════════ -->
+<div id="page-festival-lenta" class="page">
+  <div class="project-page">
+    <div class="project-back">
+      <button class="back-btn" onclick="showPage('works')" data-es="← Volver a todos los trabajos" data-en="← Back to all works">← Volver a todos los trabajos</button>
+    </div>
+    <div class="project-header">
+      <p class="project-tag" data-es="Diseño de Marca" data-en="Brand Design">Diseño de Marca</p>
+      <h1>Lenta Festival</h1>
+      <p data-es="Este proyecto fue desarrollado para Diseño 1 como respuesta a un brief enfocado en crear un sistema visual cohesivo basado en un concepto. La propuesta se centra en un festival de slow food, explorando la alimentación consciente, la sustentabilidad y las prácticas gastronómicas tradicionales. El proyecto incluye afiches, entradas, merchandising y una pieza editorial, todos conectados a través de una identidad visual unificada. Las ilustraciones fueron creadas con técnicas analógicas, reforzando la idea de lentitud, materialidad y un proceso creativo más intencional." data-en="This project was developed for Design 1 as a response to a brief focused on creating a cohesive visual system based on a concept. The proposal centers on a slow food festival, exploring conscious eating, sustainability, and traditional food practices. The project includes posters, tickets, merchandising, and an editorial piece, all connected through a unified visual identity. The illustrations were created using analog techniques, reinforcing the idea of slowness, materiality, and a more intentional creative process.">Este proyecto fue desarrollado para Diseño 1 como respuesta a un brief enfocado en crear un sistema visual cohesivo basado en un concepto. La propuesta se centra en un festival de slow food, explorando la alimentación consciente, la sustentabilidad y las prácticas gastronómicas tradicionales. El proyecto incluye afiches, entradas, merchandising y una pieza editorial, todos conectados a través de una identidad visual unificada. Las ilustraciones fueron creadas con técnicas analógicas, reforzando la idea de lentitud, materialidad y un proceso creativo más intencional.</p>
+    </div>
+    <div class="project-hero-img">
+      <img src="https://framerusercontent.com/images/8RZRwKBNulp7Ibb7LB19MgDGPM.png" alt="Festival Lenta">
+    </div>
+    <div class="project-body">
+      <div class="project-overview">
+        <div class="project-meta">
+          <h4 data-es="Resumen del proyecto" data-en="Project Overview">Resumen del proyecto</h4>
+          <div class="project-meta-item">
+            <div class="project-meta-label" data-es="Tipo" data-en="Type">Tipo</div>
+            <div class="project-meta-val" data-es="Diseño de Marca" data-en="Brand Design">Diseño de Marca</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="project-meta-label" data-es="Curso" data-en="Course">Curso</div>
+            <div class="project-meta-val" data-es="Diseño 1" data-en="Design 1">Diseño 1</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="project-meta-label" data-es="Piezas" data-en="Deliverables">Piezas</div>
+            <div class="project-meta-val" data-es="Afiches · Entradas · Merch · Editorial" data-en="Posters · Tickets · Merch · Editorial">Afiches · Entradas · Merch · Editorial</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="project-meta-label" data-es="Técnica" data-en="Technique">Técnica</div>
+            <div class="project-meta-val" data-es="Ilustración analógica" data-en="Analog illustration">Ilustración analógica</div>
+          </div>
+        </div>
+        <div class="project-overview-text">
+          <h4 data-es="Sobre el proyecto" data-en="About the project">Sobre el proyecto</h4>
+          <p><strong data-es="Este proyecto fue desarrollado para Diseño 1 como respuesta a un brief enfocado en crear un sistema visual cohesivo basado en un concepto." data-en="This project was developed for Design 1 as a response to a brief focused on creating a cohesive visual system based on a concept.">Este proyecto fue desarrollado para Diseño 1 como respuesta a un brief enfocado en crear un sistema visual cohesivo basado en un concepto.</strong></p>
+          <p data-es="La propuesta se centra en un festival de slow food, explorando la alimentación consciente, la sustentabilidad y las prácticas gastronómicas tradicionales. El proyecto incluye afiches, entradas, merchandising y una pieza editorial, todos conectados a través de una identidad visual unificada." data-en="The proposal centers on a slow food festival, exploring conscious eating, sustainability, and traditional food practices. The project includes posters, tickets, merchandising, and an editorial piece, all connected through a unified visual identity.">La propuesta se centra en un festival de slow food, explorando la alimentación consciente, la sustentabilidad y las prácticas gastronómicas tradicionales. El proyecto incluye afiches, entradas, merchandising y una pieza editorial, todos conectados a través de una identidad visual unificada.</p>
+          <p data-es="Las ilustraciones fueron creadas con técnicas analógicas, reforzando la idea de lentitud, materialidad y un proceso creativo más intencional." data-en="The illustrations were created using analog techniques, reinforcing the idea of slowness, materiality, and a more intentional creative process.">Las ilustraciones fueron creadas con técnicas analógicas, reforzando la idea de lentitud, materialidad y un proceso creativo más intencional.</p>
+        </div>
+      </div>
+      <p class="project-gallery-label" data-es="Solución de diseño" data-en="Design Solution">Solución de diseño</p>
+      <h2 class="project-gallery-title" data-es="Solución de diseño" data-en="Design Solution">Solución de diseño</h2>
+      <div class="project-gallery">
+        <img src="https://framerusercontent.com/images/ZTPuawJs9f77aKdhm5TJnQNys.png" alt="">
+        <div class="row-2">
+          <img src="https://framerusercontent.com/images/d3SWsiYJLi3CYJsD2DSaW3YRAIk.png" alt="">
+          <img src="https://framerusercontent.com/images/laHlRshBkWyIBXfGY3ppiA6PXg.png" alt="">
+        </div>
+        <div class="row-2">
+          <img src="https://framerusercontent.com/images/zyt2TStHLxmhJAb9vw5aWuZPzhI.png" alt="">
+          <img src="https://framerusercontent.com/images/VO9SHcZy598lKDPpjfckyCj9aZY.gif" alt="">
+        </div>
+        <img src="https://framerusercontent.com/images/GK8t4VhmieZp0R96EMPjNG8.png" alt="">
+        <div class="row-2">
+          <img src="https://framerusercontent.com/images/UWSdVGE2rOSN3UNc2WcAm7m7s.png" alt="">
+          <img src="https://framerusercontent.com/images/Troi2Yo0yy9PDVAhM6exsE8tBU.png" alt="">
+        </div>
+        <img src="https://framerusercontent.com/images/3QC6xEMB2KSGKATM3lzQrY6IAcc.png" alt="">
+      </div>
+      <div class="project-nav-row">
+        <button class="project-nav-btn" onclick="showPage('works')" data-es="← Volver a todos los trabajos" data-en="← Back to all works">← Volver a todos los trabajos</button>
+        <button class="project-nav-btn" onclick="showProject('laluzincidente')">La luz incidente →</button>
+      </div>
+    </div>
+  </div>
+</div><!-- /page-festival-lenta -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: LA LUZ INCIDENTE
+══════════════════════════════════════════ -->
+<div id="page-laluzincidente" class="page">
+  <div class="project-page">
+    <div class="project-back">
+      <button class="back-btn" onclick="showPage('works')" data-es="← Volver a todos los trabajos" data-en="← Back to all works">← Volver a todos los trabajos</button>
+    </div>
+    <div class="project-header">
+      <p class="project-tag" data-es="Proyecto Universitario" data-en="University Project">Proyecto Universitario</p>
+      <h1>La luz incidente</h1>
+      <p data-es="Proyecto académico desarrollado para la cátedra de Diseño Gráfico II (Nivel 2) — Gabriele. Este trabajo se centró en el análisis del cine argentino como referente cultural y visual. Trabajando con un corpus de 15 películas argentinas, el proyecto exploró cómo el cine refleja la identidad local, la historia y las perspectivas artísticas, y cómo estos elementos pueden traducirse en un afiche cinematográfico contemporáneo." data-en="Academic project developed for the Graphic Design II (Level 2) course — Gabriele Studio. This assignment focused on the analysis of Argentine cinema as a cultural and visual reference. Working with a selected corpus of 15 Argentine films, the project explored how cinema reflects local identity, history, and artistic perspectives, and how these elements can be translated into a contemporary movie poster.">Proyecto académico desarrollado para la cátedra de Diseño Gráfico II (Nivel 2) — Gabriele. Este trabajo se centró en el análisis del cine argentino como referente cultural y visual. Trabajando con un corpus de 15 películas argentinas, el proyecto exploró cómo el cine refleja la identidad local, la historia y las perspectivas artísticas, y cómo estos elementos pueden traducirse en un afiche cinematográfico contemporáneo.</p>
+    </div>
+    <div class="project-hero-img">
+      <img src="https://framerusercontent.com/images/1n7hTx2KDQqSmI6NboIsvfr4cVI.png" alt="La luz incidente">
+    </div>
+    <div class="project-body">
+      <div class="project-overview">
+        <div class="project-meta">
+          <h4 data-es="Resumen del proyecto" data-en="Project Overview">Resumen del proyecto</h4>
+          <div class="project-meta-item">
+            <div class="project-meta-label" data-es="Cátedra" data-en="Chair">Cátedra</div>
+            <div class="project-meta-val">Gabriele</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="project-meta-label" data-es="Curso" data-en="Course">Curso</div>
+            <div class="project-meta-val" data-es="Diseño Gráfico II" data-en="Graphic Design II">Diseño Gráfico II</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="project-meta-label" data-es="Año" data-en="Year">Año</div>
+            <div class="project-meta-val">2024</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="project-meta-label" data-es="Pieza" data-en="Deliverable">Pieza</div>
+            <div class="project-meta-val" data-es="Afiche cinematográfico" data-en="Movie poster">Afiche cinematográfico</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="project-meta-label" data-es="Comisión" data-en="Commission">Comisión</div>
+            <div class="project-meta-val">Sofía Casabella y Lucio Calocero</div>
+          </div>
+        </div>
+        <div class="project-overview-text">
+          <h4 data-es="Sobre el proyecto" data-en="About the project">Sobre el proyecto</h4>
+          <p><strong data-es="Proyecto académico para Diseño Gráfico II (Nivel 2) — Gabriele." data-en="Academic project for Graphic Design II (Level 2) — Gabriele.">Proyecto académico para Diseño Gráfico II (Nivel 2) — Gabriele.</strong></p>
+          <p data-es="Este trabajo se centró en el análisis del cine argentino como referente cultural y visual. Trabajando con un corpus de 15 películas argentinas, el proyecto exploró cómo el cine refleja la identidad local, la historia y las perspectivas artísticas, y cómo estos elementos pueden traducirse en un afiche cinematográfico contemporáneo." data-en="This assignment focused on the analysis of Argentine cinema as a cultural and visual reference. Working with a selected corpus of 15 Argentine films, the project explored how cinema reflects local identity, history, and artistic perspectives, and how these elements can be translated into a contemporary movie poster.">Este trabajo se centró en el análisis del cine argentino como referente cultural y visual. Trabajando con un corpus de 15 películas argentinas, el proyecto exploró cómo el cine refleja la identidad local, la historia y las perspectivas artísticas, y cómo estos elementos pueden traducirse en un afiche cinematográfico contemporáneo.</p>
+          <p data-es="El proceso incluyó investigación visual, retórica de la imagen, observación y exploración conceptual. Los aspectos clave fueron bocetado, composición, jerarquía visual y el uso de la tipografía como elemento expresivo integrado a la imagen." data-en="The process involved visual research, image rhetoric, observation, and conceptual exploration. Key aspects included sketching, composition, visual hierarchy, and the use of typography as an expressive element integrated into the image.">El proceso incluyó investigación visual, retórica de la imagen, observación y exploración conceptual. Los aspectos clave fueron bocetado, composición, jerarquía visual y el uso de la tipografía como elemento expresivo integrado a la imagen.</p>
+          <p data-es="También se introdujo la animación como recurso de diseño y su relación con el sonido, expandiendo el afiche más allá del formato estático." data-en="An introduction to animation was also part of the project, exploring movement as a design resource and its relationship with sound, expanding the poster beyond a purely static format.">También se introdujo la animación como recurso de diseño y su relación con el sonido, expandiendo el afiche más allá del formato estático.</p>
+        </div>
+      </div>
+      <p class="project-gallery-label" data-es="Solución de diseño" data-en="Design Solution">Solución de diseño</p>
+      <h2 class="project-gallery-title" data-es="Solución de diseño" data-en="Design Solution">Solución de diseño</h2>
+      <div class="project-gallery">
+        <div class="row-2">
+          <img src="https://framerusercontent.com/images/grq4mhqVXANRjBuQtpa53cphf0U.png" alt="">
+          <img src="https://framerusercontent.com/images/gQoc0N2TKEVGCreLo2GcC322hs.png" alt="">
+        </div>
+        <img src="https://framerusercontent.com/images/8BFsxHZWpgPn3x3wT5UAVYbaqNs.png" alt="">
+        <div class="row-2">
+          <img src="https://framerusercontent.com/images/4zJYONwpL8BbeKdkocdhx0ScAkk.png" alt="">
+          <img src="https://framerusercontent.com/images/R6CvCi8w4hX3y0H78EgrxH89NI8.png" alt="">
+        </div>
+        <div class="row-3">
+          <img src="https://framerusercontent.com/images/JaN3M8wAeDlM8BWc5QWjiV8qhU.png" alt="">
+          <img src="https://framerusercontent.com/images/mS2LXBpRjKBFVDaYldC2bQUJAI.png" alt="">
+          <img src="https://framerusercontent.com/images/NPdkY2MZmGStlLCHA69nEqdAE.png" alt="">
+        </div>
+        <img src="https://framerusercontent.com/images/Al2n6S0JEOXvana6qEqVC0Dcnc.png" alt="">
+      </div>
+      <div class="project-nav-row">
+        <button class="project-nav-btn" onclick="showProject('festival-lenta')">← Festival Lenta</button>
+        <button class="project-nav-btn" onclick="showProject('festival-nutra')">Festival Nutra →</button>
+      </div>
+    </div>
+  </div>
+</div><!-- /page-laluzincidente -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: FESTIVAL NUTRA
+══════════════════════════════════════════ -->
+<div id="page-festival-nutra" class="page">
+  <div class="project-page">
+    <div class="project-back">
+      <button class="back-btn" onclick="showPage('works')" data-es="← Volver a todos los trabajos" data-en="← Back to all works">← Volver a todos los trabajos</button>
+    </div>
+    <div class="project-header">
+      <p class="project-tag" data-es="Diseño de Marca" data-en="Brand Design">Diseño de Marca</p>
+      <h1>Festival Nutra</h1>
+      <p data-es="Festival Nutra es un evento enfocado en promover hábitos saludables, nutrición consciente y bienestar integral. El objetivo de este proyecto fue desarrollar un sistema de identidad visual para el festival, capaz de comunicar sus valores y crear una experiencia de marca cohesiva y reconocible." data-en="Festival Nutra is an event focused on promoting healthy habits, conscious nutrition, and overall well-being. The objective of this project was to develop a visual identity system for the festival, capable of communicating its values and creating a cohesive and recognizable brand experience.">Festival Nutra es un evento enfocado en promover hábitos saludables, nutrición consciente y bienestar integral. El objetivo de este proyecto fue desarrollar un sistema de identidad visual para el festival, capaz de comunicar sus valores y crear una experiencia de marca cohesiva y reconocible.</p>
+    </div>
+    <div class="project-hero-img">
+      <img src="https://framerusercontent.com/images/jtk21LERHjBCtGFdhEmc573lp0.png" alt="Festival Nutra">
+    </div>
+    <div class="project-body">
+      <div class="project-overview">
+        <div class="project-meta">
+          <h4 data-es="Resumen del proyecto" data-en="Project Overview">Resumen del proyecto</h4>
+          <div class="project-meta-item">
+            <div class="project-meta-label" data-es="Cliente" data-en="Client">Cliente</div>
+            <div class="project-meta-val">Festival Nutra</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="project-meta-label" data-es="Industria" data-en="Industry">Industria</div>
+            <div class="project-meta-val" data-es="Wellness · Nutrición · Eventos" data-en="Wellness · Nutrition · Events">Wellness · Nutrición · Eventos</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="project-meta-label">Timeline</div>
+            <div class="project-meta-val" data-es="8 semanas (2024)" data-en="8 weeks (2024)">8 semanas (2024)</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="project-meta-label" data-es="Rol" data-en="Role">Rol</div>
+            <div class="project-meta-val">Visual / Brand Designer</div>
+          </div>
+        </div>
+        <div class="project-overview-text">
+          <h4 data-es="Sobre el proyecto" data-en="About the project">Sobre el proyecto</h4>
+          <p><strong>Festival Nutra</strong> <span data-es="es un evento enfocado en promover hábitos saludables, nutrición consciente y bienestar integral." data-en="is an event focused on promoting healthy habits, conscious nutrition, and overall well-being.">es un evento enfocado en promover hábitos saludables, nutrición consciente y bienestar integral.</span></p>
+          <p data-es="El objetivo fue desarrollar un sistema de identidad visual capaz de comunicar los valores del festival y crear una experiencia de marca cohesiva y reconocible." data-en="The objective was to develop a visual identity system capable of communicating the festival's values and creating a cohesive and recognizable brand experience.">El objetivo fue desarrollar un sistema de identidad visual capaz de comunicar los valores del festival y crear una experiencia de marca cohesiva y reconocible.</p>
+          <p data-es="La propuesta incluye el diseño de una identidad flexible aplicable en distintos touchpoints: afiches, redes sociales y materiales on-site. El sistema busca transmitir equilibrio, vitalidad y accesibilidad, alineándose con los temas centrales del festival." data-en="The proposal includes the design of a flexible identity that can be applied across different touchpoints, such as posters, social media, and on-site materials. The system aims to convey a sense of balance, vitality, and accessibility, aligning with the festival's core themes.">La propuesta incluye el diseño de una identidad flexible aplicable en distintos touchpoints: afiches, redes sociales y materiales on-site. El sistema busca transmitir equilibrio, vitalidad y accesibilidad, alineándose con los temas centrales del festival.</p>
+        </div>
+      </div>
+      <p class="project-gallery-label" data-es="Solución de diseño" data-en="Design Solution">Solución de diseño</p>
+      <h2 class="project-gallery-title" data-es="Solución de diseño" data-en="Design Solution">Solución de diseño</h2>
+      <div class="project-gallery">
+        <img src="https://framerusercontent.com/images/oSAbjAg99GgdiTypKACVIFCZAU.png" alt="">
+        <div class="row-2">
+          <img src="https://framerusercontent.com/images/7HRRDP7rwKxhoXvOu9K9QimS3o.png" alt="">
+          <img src="https://framerusercontent.com/images/4GuvcYeBvWC25eVTP0ZtjYsVlU.png" alt="">
+        </div>
+        <div class="row-2">
+          <img src="https://framerusercontent.com/images/aG7CyzoZynUQ8c13ZJu7Zh7fc.png" alt="">
+          <img src="https://framerusercontent.com/images/QCQm26XL5cooMA5ODLY50WlSC0.png" alt="">
+        </div>
+        <div class="row-3">
+          <img src="https://framerusercontent.com/images/wqueHKCBu5KsCDfLOVJyj48jL6w.png" alt="">
+          <img src="https://framerusercontent.com/images/peKZ0T0zXKrkPjUQ7KSMVZTWs.png" alt="">
+          <img src="https://framerusercontent.com/images/LExhiF0sZN6DtwKZtcs3p9Ns.png" alt="">
+        </div>
+        <img src="https://framerusercontent.com/images/66OGfz76ti14H0WWHS6zVHOnzh4.gif" alt="">
+      </div>
+      <div class="project-nav-row">
+        <button class="project-nav-btn" onclick="showProject('laluzincidente')">← La luz incidente</button>
+        <button class="project-nav-btn" onclick="showPage('works')" data-es="Ver todos los trabajos →" data-en="View all works →">Ver todos los trabajos →</button>
+      </div>
+    </div>
+  </div>
+</div><!-- /page-festival-nutra -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: PLAYGROUND
+══════════════════════════════════════════ -->
+<div id="page-playground" class="page">
+  <div class="playground-page">
+    <div class="playground-header">
+      <p class="section-label" data-es="Experimentos" data-en="Experiments">Experimentos</p>
+      <h1>Playground</h1>
+      <p data-es="Diseños experimentales y proyectos personales creados para explorar los límites del diseño en proyectos emergentes." data-en="Experimental designs and side projects crafted to push boundaries for emerging ventures.">Diseños experimentales y proyectos personales creados para explorar los límites del diseño en proyectos emergentes.</p>
+    </div>
+    <div class="playground-grid">
+      <div class="pg-item pg-span-12 pg-h-land">
+        <video autoplay muted loop playsinline>
+          <source src="https://framerusercontent.com/assets/xBIDmSbmQ3tvLowlFtVHfsX0p3Q.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="pg-item pg-span-6 pg-h-sq">
+        <img src="https://framerusercontent.com/images/kMPNhw67dvhKcErNE9QX6oPXzgw.png" alt="">
+      </div>
+      <div class="pg-item pg-span-6 pg-h-sq" style="display:grid; grid-template-rows:1fr 1fr; gap:1.2rem; background:transparent; border-radius:0; overflow:visible;">
+        <div class="pg-item" style="height:100%;"><img src="https://framerusercontent.com/images/H7AEeodM6LYkPwhH7dZIXj0GLHQ.png" alt=""></div>
+        <div class="pg-item" style="height:100%;"><img src="https://framerusercontent.com/images/XJ8qwEAcOZqlN7WOhkaU7n3e4.png" alt=""></div>
+      </div>
+      <div class="pg-item pg-span-12 pg-h-land">
+        <img src="https://framerusercontent.com/images/cpzLd5eJpjruE2FFh22ItPFUbc.png" alt="">
+      </div>
+      <div class="pg-item pg-span-4 pg-h-port">
+        <img src="https://framerusercontent.com/images/uEtVeUb7ERHzsRWCQWx6EDvOso4.png" alt="">
+      </div>
+      <div class="pg-item pg-span-8" style="aspect-ratio:unset;">
+        <img src="https://framerusercontent.com/images/cLpybM5RyQVjjj7DrrbbEAVhA.png" alt="">
+      </div>
+      <div class="pg-item pg-span-7 pg-h-land">
+        <video autoplay muted loop playsinline>
+          <source src="https://framerusercontent.com/assets/CmMs6MToRfP4oRHbLWObaYVbFrM.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="pg-item pg-span-5 pg-h-land" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.6rem; background:transparent; border-radius:0; overflow:visible;">
+        <div class="pg-item" style="height:100%;"><img src="https://framerusercontent.com/images/i2BLeNGluJUDz1Xte2tm3aWag.png" alt=""></div>
+        <div class="pg-item" style="height:100%;"><img src="https://framerusercontent.com/images/XjqyJQV6BUekLjvI0XezwNd6DA.png" alt=""></div>
+        <div class="pg-item" style="height:100%;"><img src="https://framerusercontent.com/images/NjIca3Mdln7B9oMDYfP08l47KQ.png" alt=""></div>
+      </div>
+      <div class="pg-item pg-span-6 pg-h-sq">
+        <img src="https://framerusercontent.com/images/hz19mOl6iIfqsNtS5uvyoruRvQ.png" alt="">
+      </div>
+      <div class="pg-item pg-span-6 pg-h-sq">
+        <img src="https://framerusercontent.com/images/Qzbom9cJ0HASHiENNFPgGOLz08.png" alt="">
+      </div>
+      <div class="pg-item pg-span-6 pg-h-land">
+        <video autoplay muted loop playsinline>
+          <source src="https://framerusercontent.com/assets/nQg0v31Kq6CIH6Fg5QYg8sZwVg.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="pg-item pg-span-6 pg-h-land">
+        <video autoplay muted loop playsinline>
+          <source src="https://framerusercontent.com/assets/hJkgoW6wqiZyeDJsGfIFkZPkgtg.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="pg-item pg-span-12" style="aspect-ratio:16/7;">
+        <img src="https://framerusercontent.com/images/hDldisiPsZ1EqyVHKFMJRJjUI.jpg" alt="">
+      </div>
+    </div>
+  </div>
+</div><!-- /page-playground -->
+
+
 <script>
+  // ─── ROUTER ───
+  function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-' + pageId);
+    if (target) { target.classList.add('active'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  }
+  function showProject(projectId) { showPage(projectId); }
+
+  // ─── i18n ───
+  let currentLang = 'es';
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+
+    // Update all elements with data-es / data-en
+    document.querySelectorAll('[data-es]').forEach(el => {
+      const val = el.getAttribute('data-' + lang);
+      if (!val) return;
+      // Use innerHTML to support tags like <strong> and <em>
+      el.innerHTML = val;
+    });
+
+    // Ticker items have a dot inside — rebuild them cleanly
+    document.querySelectorAll('.ticker-item[data-es]').forEach(el => {
+      const text = el.getAttribute('data-' + lang);
+      el.innerHTML = text + ' <span class="ticker-dot">·</span>';
+    });
+  }
+
+  // ─── FAQ ───
   document.querySelectorAll('.faq-q').forEach(btn => {
     btn.addEventListener('click', () => {
       const answer = btn.nextElementSibling;
@@ -614,10 +827,7 @@
         b.classList.remove('open');
         b.nextElementSibling.classList.remove('visible');
       });
-      if (!isOpen) {
-        btn.classList.add('open');
-        answer.classList.add('visible');
-      }
+      if (!isOpen) { btn.classList.add('open'); answer.classList.add('visible'); }
     });
   });
 </script>
