@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diana Mansilla – Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f2ec;
+    --fg: #1a1a1a;
+    --fg2: #555;
+    --fg3: #888;
+    --accent: #c8a96e;
+    --accent2: #2a2a2a;
+    --card-bg: #fff;
+    --border: rgba(0,0,0,0.1);
+    --nav-bg: rgba(245,242,236,0.92);
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --radius: 12px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--fg);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--nav-bg);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 58px;
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: var(--fg);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--fg2);
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--fg); }
+  .nav-cta {
+    background: var(--fg);
+    color: #fff !important;
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 0.85rem !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: #333 !important; color: #fff !important; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(200,169,110,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 1.2rem;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero-desc {
+    max-width: 540px;
+    font-size: 1.05rem;
+    color: var(--fg2);
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .btn-primary {
+    background: var(--fg);
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-primary:hover { background: #333; transform: translateY(-1px); }
+  .btn-secondary {
+    border: 1.5px solid var(--border);
+    background: transparent;
+    color: var(--fg);
+    padding: 12px 28px;
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    transition: background 0.2s;
+  }
+  .btn-secondary:hover { background: rgba(0,0,0,0.04); }
+
+  /* ─── TICKER ─── */
+  .ticker-wrap {
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 0;
+    background: var(--bg);
+    position: relative;
+  }
+  .ticker-track {
+    display: flex;
+    gap: 0;
+    white-space: nowrap;
+    animation: ticker 22s linear infinite;
+    width: max-content;
+  }
+  .ticker-track:hover { animation-play-state: paused; }
+  .ticker-item {
+    font-family: var(--serif);
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--fg2);
+    letter-spacing: 0.04em;
+    padding: 0 2.5rem;
+  }
+  .ticker-dot {
+    color: var(--accent);
+    font-size: 1.2rem;
+    line-height: 1;
+    vertical-align: middle;
+  }
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .section-sub {
+    color: var(--fg2);
+    max-width: 520px;
+    font-size: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  /* ─── WORKS GRID ─── */
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  .work-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid var(--border);
+    transition: transform 0.25s, box-shadow 0.25s;
+    display: block;
+  }
+  .work-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
+  .work-card-img {
+    width: 100%;
+    aspect-ratio: 16/10;
+    object-fit: cover;
+    display: block;
+    background: #e8e4db;
+  }
+  .work-card-body { padding: 1.25rem 1.4rem; }
+  .work-card-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .work-card h3 {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    margin-bottom: 0.6rem;
+    line-height: 1.25;
+  }
+  .work-card p { font-size: 0.875rem; color: var(--fg2); line-height: 1.6; }
+
+  /* ─── SCROLL GALLERY ─── */
+  .gallery-wrap {
+    overflow: hidden;
+    margin: 0 -2rem;
+    padding: 2rem 0;
+  }
+  .gallery-track {
+    display: flex;
+    gap: 1.2rem;
+    animation: scroll-left 28s linear infinite;
+    width: max-content;
+  }
+  .gallery-track:hover { animation-play-state: paused; }
+  .gallery-img {
+    height: 260px;
+    width: auto;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
+    display: block;
+    background: #ddd;
+  }
+  @keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ─── SKILLS ─── */
+  .skills-section { background: var(--fg); color: #fff; max-width: 100%; padding: 5rem 2rem; }
+  .skills-inner { max-width: 1100px; margin: 0 auto; }
+  .skills-section .section-title { color: #fff; }
+  .skills-section .section-label { color: var(--accent); }
+  .skills-section .section-sub { color: rgba(255,255,255,0.55); }
+  .skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+  .skill-pill {
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.85);
+    transition: border-color 0.2s, background 0.2s;
+    cursor: default;
+  }
+  .skill-pill:hover { border-color: var(--accent); background: rgba(200,169,110,0.1); }
+
+  /* ─── ABOUT ─── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .about-text p { color: var(--fg2); margin-bottom: 1rem; font-size: 0.97rem; }
+  .about-text strong { color: var(--fg); font-weight: 500; }
+  .about-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .about-img {
+    border-radius: var(--radius);
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    background: #ddd;
+    display: block;
+  }
+  .about-img:first-child { grid-column: 1 / -1; aspect-ratio: 16/9; }
+
+  /* ─── CONTACT ─── */
+  .contact-section {
+    text-align: center;
+    padding: 6rem 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .contact-section .section-title { margin-bottom: 0.5rem; }
+  .contact-section .section-sub { margin: 0 auto 3rem; }
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .contact-link {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    min-width: 180px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .contact-link:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .contact-link-label { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg3); font-weight: 500; margin-bottom: 0.3rem; }
+  .contact-link-val { font-size: 0.92rem; font-weight: 500; color: var(--fg); }
+
+  /* ─── FAQ ─── */
+  .faq-list { list-style: none; border-top: 1px solid var(--border); }
+  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-q {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: 1.2rem 0;
+    font-family: var(--sans);
+    font-size: 0.97rem;
+    color: var(--fg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  .faq-q .arrow { font-size: 1.1rem; transition: transform 0.25s; color: var(--fg3); }
+  .faq-q.open .arrow { transform: rotate(45deg); }
+  .faq-a { display: none; padding: 0 0 1.2rem; font-size: 0.9rem; color: var(--fg2); max-width: 620px; line-height: 1.7; }
+  .faq-a.visible { display: block; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 2.5rem;
+    font-size: 0.82rem;
+    color: var(--fg3);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  footer a { color: var(--fg3); text-decoration: none; }
+  footer a:hover { color: var(--fg); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 0 1.2rem; }
+    .nav-links li:not(:last-child) { display: none; }
+    section { padding: 3.5rem 1.2rem; }
+    .about-grid { grid-template-columns: 1fr; }
+    .works-grid { grid-template-columns: 1fr; }
+    footer { padding: 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Diana Mansilla</a>
+  <ul class="nav-links">
+    <li><a href="#trabajos">Trabajos</a></li>
+    <li><a href="#sobre-mi">Sobre mí</a></li>
+    <li><a href="#contacto" class="nav-cta">¡Hablemos!</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="max-width:100%; padding-left:2rem; padding-right:2rem;">
+  <p class="hero-eyebrow">Portfolio creativo</p>
+  <h1>Portfolio<br><em>Creativo</em></h1>
+  <p class="hero-desc">
+    Soy diseñadora gráfica enfocada en diseño visual, ilustración y motion graphics. Creo visuales digitales audaces y reflexivos que combinan concepto, oficio y narrativa en distintas plataformas.
+  </p>
+  <div class="hero-btns">
+    <a href="#trabajos" class="btn-primary">Ver trabajos →</a>
+    <a href="#contacto" class="btn-secondary">Contacto</a>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-item">Diseño de Marca <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Identidad Visual <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Motion Graphics <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Ilustración <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Diseño Editorial <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Diseño UI <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Dirección de Arte <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Redes Sociales <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Diseño Web <span class="ticker-dot">·</span></span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item">Diseño de Marca <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Identidad Visual <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Motion Graphics <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Ilustración <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Diseño Editorial <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Diseño UI <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Dirección de Arte <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Redes Sociales <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Diseño Web <span class="ticker-dot">·</span></span>
+  </div>
+</div>
+
+<!-- GALLERY SCROLL -->
+<div style="padding: 4rem 0 0; overflow:hidden;">
+  <div style="max-width:1100px; margin: 0 auto 1.5rem; padding: 0 2rem;">
+    <p class="section-label">Galería</p>
+    <h2 class="section-title">El diseño en acción</h2>
+  </div>
+  <div class="gallery-wrap">
+    <div class="gallery-track">
+      <img class="gallery-img" src="https://framerusercontent.com/images/Qzbom9cJ0HASHiENNFPgGOLz08.png" alt="Trabajo 1">
+      <img class="gallery-img" src="https://framerusercontent.com/images/XIxLYwUm4SLSEpbnAdanNZOSi8.jpg" alt="Trabajo 2">
+      <img class="gallery-img" src="https://framerusercontent.com/images/IuEXSxMD68Lac2LV1h3v7Qi9k.png" alt="Trabajo 3">
+      <img class="gallery-img" src="https://framerusercontent.com/images/sTOsr7wVKosQLDd0DLFwc2HOZHU.png" alt="Trabajo 4">
+      <img class="gallery-img" src="https://framerusercontent.com/images/WWGTG9HAb9y35xDZRwJ16vE7Y.png" alt="Trabajo 5">
+      <!-- duplicate -->
+      <img class="gallery-img" src="https://framerusercontent.com/images/Qzbom9cJ0HASHiENNFPgGOLz08.png" alt="Trabajo 1">
+      <img class="gallery-img" src="https://framerusercontent.com/images/XIxLYwUm4SLSEpbnAdanNZOSi8.jpg" alt="Trabajo 2">
+      <img class="gallery-img" src="https://framerusercontent.com/images/IuEXSxMD68Lac2LV1h3v7Qi9k.png" alt="Trabajo 3">
+      <img class="gallery-img" src="https://framerusercontent.com/images/sTOsr7wVKosQLDd0DLFwc2HOZHU.png" alt="Trabajo 4">
+      <img class="gallery-img" src="https://framerusercontent.com/images/WWGTG9HAb9y35xDZRwJ16vE7Y.png" alt="Trabajo 5">
+    </div>
+  </div>
+</div>
+
+<!-- WORKS -->
+<section id="trabajos">
+  <p class="section-label">Selección de trabajos</p>
+  <h2 class="section-title">Un vistazo a mis proyectos</h2>
+  <p class="section-sub">Proyectos de diseño gráfico, identidad visual y diseño editorial que muestran mi proceso creativo.</p>
+
+  <div class="works-grid">
+
+    <a href="#" class="work-card">
+      <img class="work-card-img" src="https://framerusercontent.com/images/8RZRwKBNulp7Ibb7LB19MgDGPM.png" alt="Festival Lenta">
+      <div class="work-card-body">
+        <p class="work-card-tag">Diseño de Marca</p>
+        <h3>Festival Lenta</h3>
+        <p>Sistema visual cohesivo para un festival de slow food que explora la alimentación consciente, la sustentabilidad y las prácticas gastronómicas tradicionales. Incluye afiches, entradas, merchandising y pieza editorial.</p>
+      </div>
+    </a>
+
+    <a href="#" class="work-card">
+      <img class="work-card-img" src="https://framerusercontent.com/images/1n7hTx2KDQqSmI6NboIsvfr4cVI.png" alt="La luz incidente">
+      <div class="work-card-body">
+        <p class="work-card-tag">Proyecto Universitario</p>
+        <h3>La luz incidente</h3>
+        <p>Proyecto académico basado en el análisis del cine argentino como referente cultural y visual. Exploración de cómo el cine refleja identidad, historia y perspectivas artísticas locales, traducidas en un afiche cinematográfico contemporáneo.</p>
+      </div>
+    </a>
+
+    <a href="#" class="work-card">
+      <img class="work-card-img" src="https://framerusercontent.com/images/jtk21LERHjBCtGFdhEmc573lp0.png" alt="Festival Nutra">
+      <div class="work-card-body">
+        <p class="work-card-tag">Diseño de Marca</p>
+        <h3>Festival Nutra</h3>
+        <p>Identidad visual completa para un festival gastronómico centrado en la nutrición y el bienestar. Diseño de sistema gráfico unificado con énfasis en la comunicación clara y el impacto visual.</p>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<div class="skills-section">
+  <div class="skills-inner">
+    <p class="section-label">Especialidades</p>
+    <h2 class="section-title">Lo que traigo a la mesa</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,0.55);">Experiencias digitales que capturan la atención de los usuarios y ayudan a tu proyecto a destacarse desde el primer día.</p>
+    <div class="skills-grid">
+      <span class="skill-pill">Diseño para Redes Sociales</span>
+      <span class="skill-pill">Branding</span>
+      <span class="skill-pill">Diseño Visual</span>
+      <span class="skill-pill">Diseño de Interfaz de Usuario</span>
+      <span class="skill-pill">Diseño Web Visual</span>
+      <span class="skill-pill">Ilustración</span>
+      <span class="skill-pill">Dirección de Arte (Junior)</span>
+      <span class="skill-pill">Motion Graphics</span>
+      <span class="skill-pill">Diseño Editorial</span>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="sobre-mi">
+  <p class="section-label">Detrás del lienzo</p>
+  <h2 class="section-title">Conóceme</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Soy <strong>Diseñadora Gráfica</strong> de Buenos Aires, Argentina, actualmente cursando la carrera de Diseño Gráfico en la Universidad de Buenos Aires. Ayudo a marcas y proyectos a convertir ideas en soluciones visuales claras y funcionales.</p>
+      <p>Desde identidad visual y diseño gráfico hasta contenido digital y multimedia, me enfoco en la comunicación y la resolución de problemas, no solo en hacer que las cosas se vean bonitas.</p>
+      <p>Trabajo con estructura, intención y atención al detalle, apuntando a diseños que tengan un propósito real y funcionen en el mundo real. Me adapto a distintos estilos y necesidades, priorizando siempre la claridad, la consistencia y los resultados.</p>
+      <p>Cuando no estoy diseñando, me inspiro observando, investigando y aprendiendo cosas nuevas. Me encanta tocar el ukelele y probar recetas nuevas en casa. Mi plato favorito es el sushi con salmón.</p>
+      <p>Creo que el gran diseño viene de la precisión, la consistencia y una ejecución sólida: equilibrar velocidad y calidad para entregar resultados confiables a escala.</p>
+    </div>
+    <div class="about-imgs">
+      <img class="about-img" src="https://framerusercontent.com/images/t4IgMebE0pchQy5aiKxaHcP3DA.png" alt="Diana Mansilla">
+      <img class="about-img" src="https://framerusercontent.com/images/L6lgP1VkHXpTP8N1cJSDqr5Sw.jpeg" alt="Viajes e inspiración">
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div id="contacto" style="background: var(--card-bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="contact-section">
+    <p class="section-label" style="text-align:center;">Contacto</p>
+    <h2 class="section-title">¿Lista para crear algo increíble?</h2>
+    <p class="section-sub">Me encantaría conectar contigo ♡</p>
+    <div class="contact-links">
+      <a href="mailto:dianamans.dg@gmail.com" class="contact-link">
+        <span class="contact-link-label">Email</span>
+        <span class="contact-link-val">dianamans.dg@gmail.com</span>
+      </a>
+      <a href="https://www.linkedin.com/in/diana-mansilladg/" target="_blank" class="contact-link">
+        <span class="contact-link-label">LinkedIn</span>
+        <span class="contact-link-val">diana-mansilladg</span>
+      </a>
+      <a href="https://www.instagram.com/dian.hue/" target="_blank" class="contact-link">
+        <span class="contact-link-label">Instagram</span>
+        <span class="contact-link-val">@dian.hue</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<section>
+  <p class="section-label">Preguntas frecuentes</p>
+  <h2 class="section-title">¿Tenés preguntas?<br>Tengo respuestas.</h2>
+  <ul class="faq-list">
+    <li class="faq-item">
+      <button class="faq-q">¿Cuál es tu proceso de diseño habitual? <span class="arrow">+</span></button>
+      <div class="faq-a">Comienzo con una fase de investigación y comprensión del brief, luego paso a exploración conceptual y bocetos. Después desarrollo propuestas visuales, las refino según el feedback y entrego los archivos finales listos para usar.</div>
+    </li>
+    <li class="faq-item">
+      <button class="faq-q">¿Cuánto tiempo suele llevar un proyecto? <span class="arrow">+</span></button>
+      <div class="faq-a">Depende del alcance y la complejidad. Un proyecto de identidad visual puede llevar 2–4 semanas; un proyecto editorial más extenso, entre 4 y 8 semanas. Siempre trabajo con plazos claros acordados desde el inicio.</div>
+    </li>
+    <li class="faq-item">
+      <button class="faq-q">¿También te encargás del desarrollo? <span class="arrow">+</span></button>
+      <div class="faq-a">Mi especialidad es el diseño gráfico y visual. Para proyectos que requieran desarrollo web o de aplicaciones, puedo colaborar con desarrolladores de confianza o trabajar con herramientas no-code como Framer.</div>
+    </li>
+    <li class="faq-item">
+      <button class="faq-q">¿Podés ayudarnos con el pitch deck? <span class="arrow">+</span></button>
+      <div class="faq-a">¡Sí! El diseño de presentaciones y pitch decks es parte de lo que ofrezco. Puedo ayudarte a comunicar tu propuesta de valor de manera clara y visualmente impactante.</div>
+    </li>
+    <li class="faq-item">
+      <button class="faq-q">¿Cómo empezamos? <span class="arrow">+</span></button>
+      <div class="faq-a">Escribime por email o LinkedIn con una breve descripción de tu proyecto. Coordinamos una llamada para conocernos, entender tus necesidades y definir los próximos pasos.</div>
+    </li>
+  </ul>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#">Diana Mansilla &copy; 2026</a>
+  <span>Diseñadora Gráfica · Buenos Aires, Argentina</span>
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const answer = btn.nextElementSibling;
+      const isOpen = btn.classList.contains('open');
+      document.querySelectorAll('.faq-q').forEach(b => {
+        b.classList.remove('open');
+        b.nextElementSibling.classList.remove('visible');
+      });
+      if (!isOpen) {
+        btn.classList.add('open');
+        answer.classList.add('visible');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
