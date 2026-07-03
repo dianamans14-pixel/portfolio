@@ -101,7 +101,7 @@
   .section-sub { color: var(--fg2); max-width: 520px; font-size: 1rem; margin-bottom: 3rem; }
 
   /* ─── WORKS GRID ─── */
-  .works-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
+  .works-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; max-width: 640px; margin: 0 auto; }
   .work-card { background: var(--card-bg); border-radius: var(--radius); overflow: hidden; text-decoration: none; color: inherit; border: 1px solid var(--border); transition: transform 0.25s, box-shadow 0.25s; display: block; cursor: pointer; }
   .work-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
   .work-card-img { width: 100%; aspect-ratio: 4/3; object-fit: contain; display: block; background: var(--bg); }
@@ -133,7 +133,7 @@
   .about-text strong { color: var(--fg); font-weight: 500; }
   .about-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
   .about-img { border-radius: var(--radius); width: 100%; object-fit: cover; background: #ddd; display: block; }
-  .about-img:first-child { aspect-ratio: 4/5; }
+  .about-img:first-child { aspect-ratio: 4/5; object-position: top; }
   .about-img:last-child { aspect-ratio: 4/5; margin-top: 2rem; }
 
   /* ─── CONTACT ─── */
@@ -163,7 +163,7 @@
   /* ─── WORKS PAGE ─── */
   .works-page { padding-top: 58px; min-height: 100vh; }
   .works-page-hero { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem 3rem; }
-  .works-page-grid { max-width: 1100px; margin: 0 auto; padding: 0 2rem 5rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
+  .works-page-grid { max-width: 680px; margin: 0 auto; padding: 0 2rem 5rem; display: grid; grid-template-columns: 1fr; gap: 2.5rem; }
   .works-page-card { background: var(--card-bg); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); cursor: pointer; transition: transform 0.25s, box-shadow 0.25s; }
   .works-page-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.12); }
   .works-page-card img { width: 100%; aspect-ratio: 4/3; object-fit: contain; display: block; background: var(--bg); }
@@ -174,6 +174,11 @@
 
   /* ─── PROJECT DETAIL ─── */
   .project-page { padding-top: 58px; min-height: 100vh; }
+  /* Zoom predeterminado al 67% solo para estos dos proyectos */
+  #page-festival-lenta .project-page,
+  #page-laluzincidente .project-page,
+  #page-festival-nutra .project-page,
+  #page-saint-johns .project-page { zoom: 0.67; }
   .project-back { max-width: 1100px; margin: 0 auto; padding: 2rem 2rem 0; }
   .back-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.88rem; color: var(--fg2); cursor: pointer; transition: color 0.2s; background: none; border: none; font-family: var(--sans); padding: 0; }
   .back-btn:hover { color: var(--fg); }
@@ -194,10 +199,51 @@
   .project-overview-text strong { color: var(--fg); }
   .project-gallery-label { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 1.2rem; }
   .project-gallery-title { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.8rem); letter-spacing: -0.02em; margin-bottom: 2.5rem; }
-  .project-gallery { display: grid; gap: 1.5rem; }
-  .project-gallery img { width: 100%; border-radius: var(--radius); display: block; background: #e8e4db; }
-  .project-gallery .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-  .project-gallery .row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; }
+  .project-gallery { display: flex; flex-direction: column; gap: 0; }
+  .project-gallery img { width: 100%; border-radius: 0; display: block; background: #e8e4db; }
+  .project-gallery video { width: 100%; display: block; background: #111; }
+  /* Control de sonido del video */
+  .pg-video-wrap { position: relative; }
+  .sound-controls { position: absolute; right: 18px; top: 18px; display: flex; align-items: center; gap: 10px; z-index: 5; transition: opacity 0.35s; }
+  .sound-tag { background: rgba(0,0,0,0.62); color: #fff; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 13px; border-radius: 100px; white-space: nowrap; transition: opacity 0.35s; }
+  .sound-tag.hide { opacity: 0 !important; pointer-events: none; }
+  /* Pasados los primeros 8s: el cartelito solo aparece al pasar el mouse por el video */
+  .pg-video-wrap.past-intro .sound-tag { opacity: 0; }
+  .pg-video-wrap.past-intro:hover .sound-tag { opacity: 1; }
+  /* El control de sonido completo también se esconde tras los 8s y vuelve con hover */
+  .pg-video-wrap.past-intro .sound-controls { opacity: 0; pointer-events: none; }
+  .pg-video-wrap.past-intro:hover .sound-controls { opacity: 1; pointer-events: auto; }
+  .sound-btn { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.92); color: var(--fg); border: none; border-radius: 100px; padding: 8px 16px; font-family: var(--sans); font-size: 0.82rem; font-weight: 500; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.25); transition: background 0.2s, transform 0.15s; }
+  .sound-btn:hover { background: #fff; transform: translateY(-1px); }
+  .sound-btn .ic { font-size: 1.05rem; line-height: 1; }
+  .project-gallery .row-2, .project-gallery .row-3 { display: flex; flex-direction: column; gap: 0; }
+  /* Festival Lenta: espaciado mínimo entre imágenes */
+  #page-festival-lenta .project-gallery,
+  #page-festival-lenta .project-gallery .row-2,
+  #page-festival-lenta .project-gallery .row-3 { gap: 6px; }
+  /* Festival Nutra: separar imágenes del fondo con borde + sombra exterior.
+     El JS refina el color del borde/sombra según el contenido de cada foto. */
+  #page-festival-nutra .project-gallery,
+  #page-festival-nutra .project-gallery .row-2,
+  #page-festival-nutra .project-gallery .row-3 { gap: 18px; }
+  #page-festival-nutra .project-gallery img {
+    border-radius: 8px;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 10px 34px -14px rgba(0,0,0,0.35);
+  }
+  /* Excepción: gif chico (izq) + imagen final (der), ocupando el ancho completo */
+  #page-festival-nutra .nutra-pair { display: flex; gap: 18px; align-items: flex-start; }
+  #page-festival-nutra .nutra-pair img { width: 100%; height: auto; display: block; min-width: 0; }
+  /* flex-grow proporcional al aspect-ratio → misma altura y ancho completo sin recortar */
+  #page-festival-nutra .nutra-pair .nutra-still { flex: 1.535 1 0; }
+  #page-festival-nutra .nutra-pair .nutra-gif  { flex: 0.78 1 0; }
+  /* Placeholder para imágenes pendientes */
+  .img-placeholder {
+    display: flex; align-items: center; justify-content: center;
+    background: #e8e4db; color: var(--fg3);
+    font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+    border-radius: var(--radius); text-align: center; padding: 1rem;
+  }
+  #page-saint-johns .project-gallery { gap: 8px; }
   .project-nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); flex-wrap: wrap; gap: 1rem; }
   .project-nav-btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--serif); font-size: 1rem; color: var(--fg); cursor: pointer; background: none; border: none; font-style: italic; transition: color 0.2s; padding: 0; }
   .project-nav-btn:hover { color: var(--accent); }
@@ -207,11 +253,16 @@
   .playground-header { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem 3rem; }
   .playground-header h1 { font-family: var(--serif); font-size: clamp(3rem, 8vw, 6rem); letter-spacing: -0.03em; line-height: 1.0; margin-bottom: 1.2rem; }
   .playground-header p { color: var(--fg2); font-size: 1.05rem; max-width: 560px; line-height: 1.75; }
-  .playground-grid { max-width: 1100px; margin: 0 auto; padding: 1rem 2rem 5rem; display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.2rem; }
-  .pg-item { border-radius: var(--radius); overflow: hidden; background: #e8e4db; }
-  .pg-item img { width: 100%; height: 100%; object-fit: contain; display: block; cursor: zoom-in; transition: transform 0.2s; }
-  .pg-item img:hover { transform: scale(1.02); }
-  .pg-item video { width: 100%; height: 100%; object-fit: cover; display: block; background: #111; }
+  .playground-grid {
+    max-width: 1040px; margin: 0 auto; padding: 1.5rem 2rem 7rem;
+    display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end;
+    gap: 100px 32px;
+  }
+  .pg-item { flex: none; max-width: 100%; border-radius: var(--radius); overflow: hidden; background: #e8e4db; }
+  .pg-item img, .pg-item video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pg-item video { background: #111; }
+  .pg-item img { cursor: zoom-in; transition: transform 0.3s; }
+  .pg-item img:hover { transform: scale(1.03); }
 
   /* ─── LIGHTBOX ─── */
   .lightbox { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; padding: 2rem; cursor: zoom-out; }
@@ -220,15 +271,26 @@
   .lightbox-img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 10px; cursor: default; box-shadow: 0 32px 80px rgba(0,0,0,0.6); }
   .lightbox-close { position: fixed; top: 1.2rem; right: 1.5rem; background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 1.2rem; cursor: pointer; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.2s; z-index: 501; font-family: var(--sans); }
   .lightbox-close:hover { background: rgba(255,255,255,0.25); }
-  .pg-span-4  { grid-column: span 4; }
-  .pg-span-5  { grid-column: span 5; }
-  .pg-span-6  { grid-column: span 6; }
-  .pg-span-7  { grid-column: span 7; }
-  .pg-span-8  { grid-column: span 8; }
-  .pg-span-12 { grid-column: span 12; }
-  .pg-h-sq   { aspect-ratio: 1/1; }
-  .pg-h-port { aspect-ratio: 4/5; }
-  .pg-h-land { aspect-ratio: 16/9; }
+
+  /* ─── CUSTOM CURSOR ─── */
+  .cursor {
+    display: none;
+    position: fixed; top: 0; left: 0;
+    width: 14px; height: 14px; margin: -7px 0 0 -7px;
+    border-radius: 50%; background: #fff;
+    mix-blend-mode: difference; pointer-events: none;
+    z-index: 9999; will-change: transform;
+    transition: width 0.25s ease, height 0.25s ease, margin 0.25s ease;
+  }
+  .cursor.grow { width: 26px; height: 26px; margin: -13px 0 0 -13px; }
+  @media (hover: hover) and (pointer: fine) {
+    body { cursor: none; }
+    a, button, .work-card, .works-page-card, .faq-q, .lang-btn { cursor: none; }
+    .cursor { display: block; }
+  }
+  /* En pantalla completa se usa el cursor del sistema */
+  body.in-fullscreen, body.in-fullscreen * { cursor: auto !important; }
+  body.in-fullscreen .cursor { display: none !important; }
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 768px) {
@@ -241,8 +303,7 @@
     .project-overview { grid-template-columns: 1fr; gap: 2rem; }
     .project-gallery .row-2, .project-gallery .row-3 { grid-template-columns: 1fr; }
     .works-page-grid { grid-template-columns: 1fr; }
-    .playground-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
-    .pg-span-4, .pg-span-5, .pg-span-6, .pg-span-7, .pg-span-8, .pg-span-12 { grid-column: span 2; }
+    .playground-grid { gap: 44px 16px; padding: 1rem 1.2rem 4rem; }
     .lang-btn { padding: 4px 8px; }
   }
 </style>
@@ -274,7 +335,7 @@
 <section class="hero" style="max-width:100%; padding-left:2rem; padding-right:2rem;">
   <p class="hero-eyebrow" data-es="Diana Mansilla" data-en="Diana Mansilla">Diana Mansilla</p>
   <h1 data-es="Portfolio<br><em>Creativo</em>" data-en="Creative<br><em>Portfolio</em>">Portfolio<br><em>Creativo</em></h1>
-  <p class="hero-desc" data-es="Soy diseñadora gráfica enfocada en diseño visual, ilustración y motion graphics. Creo visuales digitales audaces y reflexivos que combinan concepto, oficio y narrativa en distintas plataformas." data-en="I'm a graphic designer focused on visual design, illustration, and motion graphics. I craft bold and thoughtful digital visuals that blend concept, craft, and storytelling across platforms.">
+  <p class="hero-desc" data-es="Diseñadora gráfica enfocada en diseño visual, ilustración y motion graphics. Creo visuales digitales audaces y reflexivos que combinan concepto, oficio y narrativa en distintas plataformas." data-en="I'm a graphic designer focused on visual design, illustration, and motion graphics. I craft bold and thoughtful digital visuals that blend concept, craft, and storytelling across platforms.">
     Diseñadora gráfica enfocada en diseño visual, ilustración y motion graphics. Creo visuales digitales audaces y reflexivos que combinan concepto, oficio y narrativa en distintas plataformas.
   </p>
   <div class="hero-btns">
@@ -332,12 +393,12 @@
   <h2 class="section-title" data-es="Un vistazo a mis proyectos" data-en="A glimpse of my projects">Un vistazo a mis proyectos</h2>
   <p class="section-sub" data-es="Proyectos de diseño gráfico, identidad visual y diseño editorial que muestran mi proceso creativo." data-en="Graphic design, visual identity, and editorial projects that showcase my creative process.">Proyectos de diseño gráfico, identidad visual y diseño editorial que muestran mi proceso creativo.</p>
   <div class="works-grid">
-    <div class="work-card" onclick="showProject('festival-lenta')">
-      <img class="work-card-img" src="https://framerusercontent.com/images/8RZRwKBNulp7Ibb7LB19MgDGPM.png" alt="Festival Lenta">
+    <div class="work-card" onclick="showProject('saint-johns')">
+      <img class="work-card-img" src="saintjohns-cover.png" alt="Saint John's">
       <div class="work-card-body">
-        <p class="work-card-tag" data-es="Diseño de Marca" data-en="Brand Design">Diseño de Marca</p>
-        <h3>Festival Lenta</h3>
-        <p data-es="Sistema visual cohesivo para un festival de slow food que explora la alimentación consciente, la sustentabilidad y las prácticas gastronómicas tradicionales. Incluye afiches, entradas, merchandising y pieza editorial." data-en="Cohesive visual system for a slow food festival exploring conscious eating, sustainability, and traditional culinary practices. Includes posters, tickets, merchandising, and an editorial piece.">Sistema visual cohesivo para un festival de slow food que explora la alimentación consciente, la sustentabilidad y las prácticas gastronómicas tradicionales. Incluye afiches, entradas, merchandising y pieza editorial.</p>
+        <p class="work-card-tag" data-es="Identidad de Ciudad" data-en="City Identity">Identidad de Ciudad</p>
+        <h3>Saint John's</h3>
+        <p data-es="Sistema de identidad institucional para la ciudad de Saint John's, Canadá: un lenguaje visual contemporáneo inspirado en su horizonte, la niebla y el océano Atlántico, aplicado a piezas editoriales, campañas turísticas, señalética y comunicación urbana." data-en="Institutional identity system for the city of Saint John's, Canada: a contemporary visual language inspired by its skyline, the fog, and the Atlantic Ocean, applied to editorial pieces, tourism campaigns, signage, and urban communication.">Sistema de identidad institucional para la ciudad de Saint John's, Canadá: un lenguaje visual contemporáneo inspirado en su horizonte, la niebla y el océano Atlántico, aplicado a piezas editoriales, campañas turísticas, señalética y comunicación urbana.</p>
       </div>
     </div>
     <div class="work-card" onclick="showProject('laluzincidente')">
@@ -354,6 +415,22 @@
         <p class="work-card-tag" data-es="Diseño de Marca" data-en="Brand Design">Diseño de Marca</p>
         <h3>Festival Nutra</h3>
         <p data-es="Identidad visual completa para un festival gastronómico centrado en la nutrición y el bienestar. Diseño de sistema gráfico unificado con énfasis en la comunicación clara y el impacto visual." data-en="Complete visual identity for a gastronomic festival focused on nutrition and well-being. Unified graphic system design with an emphasis on clear communication and visual impact.">Identidad visual completa para un festival gastronómico centrado en la nutrición y el bienestar. Diseño de sistema gráfico unificado con énfasis en la comunicación clara y el impacto visual.</p>
+      </div>
+    </div>
+    <div class="work-card" onclick="showProject('festival-lenta')">
+      <img class="work-card-img" src="https://framerusercontent.com/images/8RZRwKBNulp7Ibb7LB19MgDGPM.png" alt="Festival Lenta">
+      <div class="work-card-body">
+        <p class="work-card-tag" data-es="Diseño de Marca" data-en="Brand Design">Diseño de Marca</p>
+        <h3>Festival Lenta</h3>
+        <p data-es="Sistema visual cohesivo para un festival de slow food que explora la alimentación consciente, la sustentabilidad y las prácticas gastronómicas tradicionales. Incluye afiches, entradas, merchandising y pieza editorial." data-en="Cohesive visual system for a slow food festival exploring conscious eating, sustainability, and traditional culinary practices. Includes posters, tickets, merchandising, and an editorial piece.">Sistema visual cohesivo para un festival de slow food que explora la alimentación consciente, la sustentabilidad y las prácticas gastronómicas tradicionales. Incluye afiches, entradas, merchandising y pieza editorial.</p>
+      </div>
+    </div>
+    <div class="work-card" onclick="showProject('video-aesa')">
+      <img class="work-card-img" src="aesa-poster.jpg" alt="Video AESA">
+      <div class="work-card-body">
+        <p class="work-card-tag" data-es="Motion &amp; Video" data-en="Motion &amp; Video">Motion &amp; Video</p>
+        <h3>Video AESA</h3>
+        <p data-es="Pieza audiovisual para el stand de AESA en una exposición. Conceptualización, edición y animación con un lenguaje visual dinámico para captar la atención y reforzar la presencia de la marca." data-en="Audiovisual piece for AESA's stand at an exhibition. Conceptualization, editing, and animation with a dynamic visual language to capture attention and reinforce the brand's presence.">Pieza audiovisual para el stand de AESA en una exposición. Conceptualización, edición y animación con un lenguaje visual dinámico para captar la atención y reforzar la presencia de la marca.</p>
       </div>
     </div>
   </div>
@@ -380,17 +457,17 @@
 
 <section id="sobre-mi">
   <p class="section-label" data-es="Detrás del lienzo" data-en="Behind the canvas">Detrás del lienzo</p>
-  <h2 class="section-title" data-es="Conóceme" data-en="Get to know me">Conóceme</h2>
+  <h2 class="section-title" data-es="Quién soy" data-en="Get to know me">Quién soy</h2>
   <div class="about-grid">
     <div class="about-text">
       <p data-es="Soy una <strong>Diseñadora Gráfica</strong> de Buenos Aires, Argentina, actualmente cursando la carrera de Diseño Gráfico en la Universidad de Buenos Aires. Ayudo a marcas y proyectos a convertir ideas en soluciones visuales claras y funcionales." data-en="I'm a <strong>Graphic Designer</strong> from Buenos Aires, Argentina, currently studying Graphic Design at the University of Buenos Aires. I help brands and projects turn ideas into clear and functional visual solutions.">Soy <strong>Diseñadora Gráfica</strong> de Buenos Aires, Argentina, actualmente cursando la carrera de Diseño Gráfico en la Universidad de Buenos Aires. Ayudo a marcas y proyectos a convertir ideas en soluciones visuales claras y funcionales.</p>
       <p data-es="Desde identidad visual y diseño gráfico hasta contenido digital y multimedia, me enfoco en la comunicación y la resolución de problemas, no solo en hacer que las cosas se vean bonitas." data-en="From visual identity and graphic design to digital and multimedia content, I focus on communication and problem-solving, not just making things look pretty.">Desde identidad visual y diseño gráfico hasta contenido digital y multimedia, me enfoco en la comunicación y la resolución de problemas, no solo en hacer que las cosas se vean bonitas.</p>
       <p data-es="Trabajo con estructura, intención y atención al detalle, apuntando a diseños que tengan un propósito real y funcionen en el mundo real. Me adapto a distintos estilos y necesidades, priorizando siempre la claridad, la consistencia y los resultados." data-en="I work with structure, intention, and attention to detail, aiming for designs that have a real purpose and work in the real world. I adapt to different styles and needs, always prioritizing clarity, consistency, and results.">Trabajo con estructura, intención y atención al detalle, apuntando a diseños que tengan un propósito real y funcionen en el mundo real. Me adapto a distintos estilos y necesidades, priorizando siempre la claridad, la consistencia y los resultados.</p>
-      <p data-es="Cuando no estoy diseñando, me inspiro observando, investigando y aprendiendo cosas nuevas. Me encanta tocar el ukelele y probar recetas nuevas en casa. Mi plato favorito es el sushi con salmón." data-en="When I'm not designing, I find inspiration by observing, researching, and learning new things. I love playing the ukulele and trying new recipes at home. My favorite dish is salmon sushi.">Cuando no estoy diseñando, me inspiro observando, investigando y aprendiendo cosas nuevas. Me encanta tocar el ukelele y probar recetas nuevas en casa. Mi plato favorito es el sushi con salmón.</p>
+      <p data-es="Cuando no estoy diseñando, me inspiro observando, investigando y aprendiendo cosas nuevas. Me encanta tocar el ukelele y probar recetas nuevas en casa. Mi plato favorito es el sushi y adoro visitar montañas siempre que puedo." data-en="When I'm not designing, I find inspiration by observing, researching, and learning new things. I love playing the ukulele and trying new recipes at home. My favorite dish is sushi, and I love visiting mountains whenever I can.">Cuando no estoy diseñando, me inspiro observando, investigando y aprendiendo cosas nuevas. Me encanta tocar el ukelele y probar recetas nuevas en casa. Mi plato favorito es el sushi y adoro visitar montañas siempre que puedo.</p>
       <p data-es="Creo que el gran diseño viene de la precisión, la consistencia y una ejecución sólida: equilibrar velocidad y calidad para entregar resultados confiables a escala." data-en="I believe great design comes from precision, consistency, and solid execution — balancing speed and quality to deliver reliable results at scale.">Creo que el gran diseño viene de la precisión, la consistencia y una ejecución sólida: equilibrar velocidad y calidad para entregar resultados confiables a escala.</p>
     </div>
     <div class="about-imgs">
-      <img class="about-img" src="https://framerusercontent.com/images/t4IgMebE0pchQy5aiKxaHcP3DA.png" alt="Diana Mansilla">
+      <img class="about-img" src="diana.png" alt="Diana Mansilla">
       <img class="about-img" src="https://framerusercontent.com/images/L6lgP1VkHXpTP8N1cJSDqr5Sw.jpeg" alt="">
     </div>
   </div>
@@ -409,10 +486,6 @@
       <a href="https://www.linkedin.com/in/diana-mansilladg/" target="_blank" class="contact-link">
         <span class="contact-link-label">LinkedIn</span>
         <span class="contact-link-val">diana-mansilladg</span>
-      </a>
-      <a href="https://www.instagram.com/dian.hue/" target="_blank" class="contact-link">
-        <span class="contact-link-label">Instagram</span>
-        <span class="contact-link-val">@dian.hue</span>
       </a>
     </div>
   </div>
@@ -479,12 +552,12 @@
       <p class="section-sub" data-es="Diseño gráfico, identidad visual y diseño editorial que muestran mi proceso creativo." data-en="Graphic design, visual identity, and editorial design that showcase my creative process.">Diseño gráfico, identidad visual y diseño editorial que muestran mi proceso creativo.</p>
     </div>
     <div class="works-page-grid">
-      <div class="works-page-card" onclick="showProject('festival-lenta')">
-        <img src="https://framerusercontent.com/images/8RZRwKBNulp7Ibb7LB19MgDGPM.png" alt="Festival Lenta">
+      <div class="works-page-card" onclick="showProject('saint-johns')">
+        <img src="saintjohns-cover.png" alt="Saint John's">
         <div class="works-page-card-body">
-          <p class="works-page-card-tag" data-es="Diseño de Marca" data-en="Brand Design">Diseño de Marca</p>
-          <h3>Festival Lenta</h3>
-          <p data-es="Sistema visual cohesivo para un festival de slow food. Afiches, entradas, merchandising y pieza editorial, todo bajo una identidad unificada." data-en="Cohesive visual system for a slow food festival. Posters, tickets, merchandising, and an editorial piece, all under a unified identity.">Sistema visual cohesivo para un festival de slow food. Afiches, entradas, merchandising y pieza editorial, todo bajo una identidad unificada.</p>
+          <p class="works-page-card-tag" data-es="Identidad de Ciudad" data-en="City Identity">Identidad de Ciudad</p>
+          <h3>Saint John's</h3>
+          <p data-es="Identidad institucional para la ciudad de Saint John's, Canadá. Un sistema visual flexible inspirado en su horizonte, la niebla y el Atlántico, aplicado a piezas editoriales, turismo, señalética y soportes urbanos." data-en="Institutional identity for the city of Saint John's, Canada. A flexible visual system inspired by its skyline, the fog, and the Atlantic, applied to editorial pieces, tourism, signage, and urban supports.">Identidad institucional para la ciudad de Saint John's, Canadá. Un sistema visual flexible inspirado en su horizonte, la niebla y el Atlántico, aplicado a piezas editoriales, turismo, señalética y soportes urbanos.</p>
         </div>
       </div>
       <div class="works-page-card" onclick="showProject('laluzincidente')">
@@ -501,6 +574,22 @@
           <p class="works-page-card-tag" data-es="Diseño de Marca" data-en="Brand Design">Diseño de Marca</p>
           <h3>Festival Nutra</h3>
           <p data-es="Identidad visual para un festival gastronómico centrado en nutrición y bienestar. Sistema gráfico flexible aplicado en afiches, redes y materiales on-site." data-en="Visual identity for a gastronomic festival focused on nutrition and well-being. Flexible graphic system applied to posters, social media, and on-site materials.">Identidad visual para un festival gastronómico centrado en nutrición y bienestar. Sistema gráfico flexible aplicado en afiches, redes y materiales on-site.</p>
+        </div>
+      </div>
+      <div class="works-page-card" onclick="showProject('festival-lenta')">
+        <img src="https://framerusercontent.com/images/8RZRwKBNulp7Ibb7LB19MgDGPM.png" alt="Festival Lenta">
+        <div class="works-page-card-body">
+          <p class="works-page-card-tag" data-es="Diseño de Marca" data-en="Brand Design">Diseño de Marca</p>
+          <h3>Festival Lenta</h3>
+          <p data-es="Sistema visual cohesivo para un festival de slow food. Afiches, entradas, merchandising y pieza editorial, todo bajo una identidad unificada." data-en="Cohesive visual system for a slow food festival. Posters, tickets, merchandising, and an editorial piece, all under a unified identity.">Sistema visual cohesivo para un festival de slow food. Afiches, entradas, merchandising y pieza editorial, todo bajo una identidad unificada.</p>
+        </div>
+      </div>
+      <div class="works-page-card" onclick="showProject('video-aesa')">
+        <img src="aesa-poster.jpg" alt="Video AESA">
+        <div class="works-page-card-body">
+          <p class="works-page-card-tag" data-es="Motion &amp; Video" data-en="Motion &amp; Video">Motion &amp; Video</p>
+          <h3>Video AESA</h3>
+          <p data-es="Pieza audiovisual para el stand de AESA en una exposición. Conceptualización, edición y animación con un lenguaje visual dinámico y contemporáneo." data-en="Audiovisual piece for AESA's stand at an exhibition. Conceptualization, editing, and animation with a dynamic, contemporary visual language.">Pieza audiovisual para el stand de AESA en una exposición. Conceptualización, edición y animación con un lenguaje visual dinámico y contemporáneo.</p>
         </div>
       </div>
     </div>
@@ -572,8 +661,8 @@
         <img src="https://framerusercontent.com/images/3QC6xEMB2KSGKATM3lzQrY6IAcc.png" alt="">
       </div>
       <div class="project-nav-row">
-        <button class="project-nav-btn" onclick="showPage('works')" data-es="← Volver a todos los trabajos" data-en="← Back to all works">← Volver a todos los trabajos</button>
-        <button class="project-nav-btn" onclick="showProject('laluzincidente')">La luz incidente →</button>
+        <button class="project-nav-btn" onclick="showProject('festival-nutra')">← Festival Nutra</button>
+        <button class="project-nav-btn" onclick="showProject('video-aesa')">Video AESA →</button>
       </div>
     </div>
   </div>
@@ -649,7 +738,7 @@
         <img src="https://framerusercontent.com/images/Al2n6S0JEOXvana6qEqVC0Dcnc.png" alt="">
       </div>
       <div class="project-nav-row">
-        <button class="project-nav-btn" onclick="showProject('festival-lenta')">← Festival Lenta</button>
+        <button class="project-nav-btn" onclick="showProject('saint-johns')">← Saint John's</button>
         <button class="project-nav-btn" onclick="showProject('festival-nutra')">Festival Nutra →</button>
       </div>
     </div>
@@ -713,22 +802,159 @@
           <img src="https://framerusercontent.com/images/aG7CyzoZynUQ8c13ZJu7Zh7fc.png" alt="">
           <img src="https://framerusercontent.com/images/QCQm26XL5cooMA5ODLY50WlSC0.png" alt="">
         </div>
+        <div class="nutra-pair">
+          <img class="nutra-still" src="nutra-final.png" alt="Nutra — piezas finales">
+          <img class="nutra-gif" src="https://framerusercontent.com/images/66OGfz76ti14H0WWHS6zVHOnzh4.gif" alt="">
+        </div>
         <div class="row-3">
-          <img src="https://framerusercontent.com/images/wqueHKCBu5KsCDfLOVJyj48jL6w.png" alt="">
           <img src="https://framerusercontent.com/images/peKZ0T0zXKrkPjUQ7KSMVZTWs.png" alt="">
           <img src="https://framerusercontent.com/images/LExhiF0sZN6DtwKZtcs3p9Ns.png" alt="">
-        </div>
-        <div style="max-width:480px; margin:0 auto;">
-          <img src="https://framerusercontent.com/images/66OGfz76ti14H0WWHS6zVHOnzh4.gif" alt="">
         </div>
       </div>
       <div class="project-nav-row">
         <button class="project-nav-btn" onclick="showProject('laluzincidente')">← La luz incidente</button>
-        <button class="project-nav-btn" onclick="showPage('works')" data-es="Ver todos los trabajos →" data-en="View all works →">Ver todos los trabajos →</button>
+        <button class="project-nav-btn" onclick="showProject('festival-lenta')">Festival Lenta →</button>
       </div>
     </div>
   </div>
 </div><!-- /page-festival-nutra -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: SAINT JOHN'S
+══════════════════════════════════════════ -->
+<div id="page-saint-johns" class="page">
+  <div class="project-page">
+    <div class="project-back">
+      <button class="back-btn" onclick="showPage('works')" data-es="← Volver a todos los trabajos" data-en="← Back to all works">← Volver a todos los trabajos</button>
+    </div>
+    <div class="project-header">
+      <p class="project-tag" data-es="Identidad de Ciudad" data-en="City Identity">Identidad de Ciudad</p>
+      <h1>Saint John's</h1>
+      <p data-es="Este proyecto académico consiste en el desarrollo de una identidad institucional para la ciudad de Saint John's, Canadá. El objetivo fue diseñar un sistema visual capaz de representar la identidad de la ciudad y responder a las necesidades de comunicación pública, promoción turística y vinculación con la comunidad." data-en="This academic project involves developing an institutional identity for the city of Saint John's, Canada. The goal was to design a visual system capable of representing the city's identity and responding to the needs of public communication, tourism promotion, and community engagement.">Este proyecto académico consiste en el desarrollo de una identidad institucional para la ciudad de Saint John's, Canadá. El objetivo fue diseñar un sistema visual capaz de representar la identidad de la ciudad y responder a las necesidades de comunicación pública, promoción turística y vinculación con la comunidad.</p>
+    </div>
+    <div class="project-hero-img">
+      <img src="saintjohns-cover.png" alt="Saint John's">
+    </div>
+    <div class="project-body">
+      <div class="project-overview">
+        <div class="project-meta">
+          <h4 data-es="Resumen del proyecto" data-en="Project Overview">Resumen del proyecto</h4>
+          <div class="project-meta-item">
+            <div class="project-meta-label" data-es="Cliente" data-en="Client">Cliente</div>
+            <div class="project-meta-val" data-es="Proyecto Académico" data-en="Academic Project">Proyecto Académico</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="project-meta-label" data-es="Industria" data-en="Industry">Industria</div>
+            <div class="project-meta-val" data-es="Gobierno · Turismo · Identidad de Ciudad" data-en="Government · Tourism · City Identity">Gobierno · Turismo · Identidad de Ciudad</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="project-meta-label">Timeline</div>
+            <div class="project-meta-val" data-es="12 semanas (2025)" data-en="12 weeks (2025)">12 semanas (2025)</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="project-meta-label" data-es="Rol" data-en="Role">Rol</div>
+            <div class="project-meta-val" data-es="Brand Identity Designer · Diseño Editorial · Sistema Gráfico" data-en="Brand Identity Designer · Editorial Design · Graphic System">Brand Identity Designer · Diseño Editorial · Sistema Gráfico</div>
+          </div>
+        </div>
+        <div class="project-overview-text">
+          <h4 data-es="Sobre el proyecto" data-en="About the project">Sobre el proyecto</h4>
+          <p><strong data-es="Este proyecto académico consiste en el desarrollo de una identidad institucional para la ciudad de Saint John's, Canadá." data-en="This academic project involves developing an institutional identity for the city of Saint John's, Canada.">Este proyecto académico consiste en el desarrollo de una identidad institucional para la ciudad de Saint John's, Canadá.</strong></p>
+          <p data-es="El objetivo fue diseñar un sistema visual capaz de representar la identidad de la ciudad y responder a las necesidades de comunicación pública, promoción turística y vinculación con la comunidad." data-en="The goal was to design a visual system capable of representing the city's identity and responding to the needs of public communication, tourism promotion, and community engagement.">El objetivo fue diseñar un sistema visual capaz de representar la identidad de la ciudad y responder a las necesidades de comunicación pública, promoción turística y vinculación con la comunidad.</p>
+          <p data-es="La propuesta parte de una investigación sobre el territorio, el clima, la historia y la cultura local para construir un lenguaje gráfico contemporáneo inspirado en los elementos más representativos de Saint John's, como sus horizontes, la niebla, el océano Atlántico y su patrimonio urbano." data-en="The proposal stems from research into the territory, climate, history, and local culture to build a contemporary graphic language inspired by the most representative elements of Saint John's, such as its skylines, the fog, the Atlantic Ocean, and its urban heritage.">La propuesta parte de una investigación sobre el territorio, el clima, la historia y la cultura local para construir un lenguaje gráfico contemporáneo inspirado en los elementos más representativos de Saint John's, como sus horizontes, la niebla, el océano Atlántico y su patrimonio urbano.</p>
+          <p data-es="Como resultado, se desarrolló un sistema de identidad flexible y escalable, aplicado a piezas editoriales, campañas turísticas, señalética, comunicación institucional y soportes urbanos, demostrando cómo una identidad visual puede fortalecer el posicionamiento de una ciudad y mejorar la experiencia de residentes y visitantes." data-en="As a result, a flexible and scalable identity system was developed, applied to editorial pieces, tourism campaigns, signage, institutional communication, and urban supports, demonstrating how a visual identity can strengthen a city's positioning and improve the experience of residents and visitors.">Como resultado, se desarrolló un sistema de identidad flexible y escalable, aplicado a piezas editoriales, campañas turísticas, señalética, comunicación institucional y soportes urbanos, demostrando cómo una identidad visual puede fortalecer el posicionamiento de una ciudad y mejorar la experiencia de residentes y visitantes.</p>
+        </div>
+      </div>
+      <p class="project-gallery-label" data-es="Solución de diseño" data-en="Design Solution">Solución de diseño</p>
+      <h2 class="project-gallery-title" data-es="Solución de diseño" data-en="Design Solution">Solución de diseño</h2>
+      <div class="project-gallery">
+        <img src="1.gif" alt="">
+        <img src="2.png" alt="">
+        <img src="3.png" alt="">
+        <img src="4.png" alt="">
+        <img src="5.png" alt="">
+        <img src="6.png" alt="">
+        <img src="7.gif" alt="">
+        <img src="8.png" alt="">
+        <img src="9.png" alt="">
+        <img src="10.gif" alt="">
+        <img src="11.png" alt="">
+        <div class="pg-video-wrap">
+          <video autoplay muted loop playsinline controls controlslist="nodownload">
+            <source src="12.MP4" type="video/mp4">
+          </video>
+          <div class="sound-controls">
+            <span class="sound-tag" data-es="Sonido recomendado" data-en="Sound recommended">Sonido recomendado</span>
+            <button class="sound-btn" onclick="toggleVideoSound(this)">
+              <span class="ic">🔇</span>
+              <span class="txt" data-es="Activar sonido" data-en="Enable sound">Activar sonido</span>
+            </button>
+          </div>
+        </div>
+        <img src="13.png" alt="">
+      </div>
+      <div class="project-nav-row">
+        <button class="project-nav-btn" onclick="showPage('works')" data-es="← Volver a todos los trabajos" data-en="← Back to all works">← Volver a todos los trabajos</button>
+        <button class="project-nav-btn" onclick="showProject('laluzincidente')">La luz incidente →</button>
+      </div>
+    </div>
+  </div>
+</div><!-- /page-saint-johns -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: VIDEO AESA
+══════════════════════════════════════════ -->
+<div id="page-video-aesa" class="page">
+  <div class="project-page">
+    <div class="project-back">
+      <button class="back-btn" onclick="showPage('works')" data-es="← Volver a todos los trabajos" data-en="← Back to all works">← Volver a todos los trabajos</button>
+    </div>
+    <div class="project-header">
+      <p class="project-tag" data-es="Motion &amp; Video" data-en="Motion &amp; Video">Motion &amp; Video</p>
+      <h1>Video AESA</h1>
+      <p data-es="Desarrollo de una pieza audiovisual para AESA destinada a exhibirse en el stand de la empresa durante una exposición. El objetivo fue captar la atención de los visitantes y comunicar la identidad, los valores y la propuesta de la marca mediante un lenguaje visual dinámico y contemporáneo." data-en="Development of an audiovisual piece for AESA to be exhibited at the company's stand during an exhibition. The goal was to capture visitors' attention and communicate the brand's identity, values, and proposition through a dynamic and contemporary visual language.">Desarrollo de una pieza audiovisual para AESA destinada a exhibirse en el stand de la empresa durante una exposición. El objetivo fue captar la atención de los visitantes y comunicar la identidad, los valores y la propuesta de la marca mediante un lenguaje visual dinámico y contemporáneo.</p>
+    </div>
+    <div class="project-hero-img">
+      <video controls controlslist="nodownload" poster="aesa-poster.jpg" preload="metadata" style="width:100%; display:block; border-radius: var(--radius); background:#111;">
+        <source src="aesa.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="project-body">
+      <div class="project-overview">
+        <div class="project-meta">
+          <h4 data-es="Resumen del proyecto" data-en="Project Overview">Resumen del proyecto</h4>
+          <div class="project-meta-item">
+            <div class="project-meta-label" data-es="Cliente" data-en="Client">Cliente</div>
+            <div class="project-meta-val">AESA</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="project-meta-label" data-es="Industria" data-en="Industry">Industria</div>
+            <div class="project-meta-val" data-es="Energía · Comunicación audiovisual" data-en="Energy · Audiovisual Communication">Energía · Comunicación audiovisual</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="project-meta-label">Timeline</div>
+            <div class="project-meta-val" data-es="2 semanas (2024)" data-en="2 weeks (2024)">2 semanas (2024)</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="project-meta-label" data-es="Rol" data-en="Role">Rol</div>
+            <div class="project-meta-val">Motion Designer · Video Editor</div>
+          </div>
+        </div>
+        <div class="project-overview-text">
+          <h4 data-es="Sobre el proyecto" data-en="About the project">Sobre el proyecto</h4>
+          <p><strong data-es="Desarrollo de una pieza audiovisual para AESA destinada a exhibirse en el stand de la empresa durante una exposición." data-en="Development of an audiovisual piece for AESA to be exhibited at the company's stand during an exhibition.">Desarrollo de una pieza audiovisual para AESA destinada a exhibirse en el stand de la empresa durante una exposición.</strong></p>
+          <p data-es="El objetivo fue captar la atención de los visitantes y comunicar la identidad, los valores y la propuesta de la marca mediante un lenguaje visual dinámico y contemporáneo." data-en="The goal was to capture visitors' attention and communicate the brand's identity, values, and proposition through a dynamic and contemporary visual language.">El objetivo fue captar la atención de los visitantes y comunicar la identidad, los valores y la propuesta de la marca mediante un lenguaje visual dinámico y contemporáneo.</p>
+          <p data-es="El proyecto abarcó la conceptualización, edición y animación del contenido, priorizando una narrativa clara, un ritmo visual atractivo y una identidad gráfica consistente. La pieza fue diseñada para funcionar en un entorno ferial, generando impacto visual, reforzando la presencia de la marca y acompañando la experiencia de los asistentes durante el evento." data-en="The project covered the conceptualization, editing, and animation of the content, prioritizing a clear narrative, an engaging visual rhythm, and a consistent graphic identity. The piece was designed to work in a trade-show environment, generating visual impact, reinforcing the brand's presence, and accompanying attendees' experience during the event.">El proyecto abarcó la conceptualización, edición y animación del contenido, priorizando una narrativa clara, un ritmo visual atractivo y una identidad gráfica consistente. La pieza fue diseñada para funcionar en un entorno ferial, generando impacto visual, reforzando la presencia de la marca y acompañando la experiencia de los asistentes durante el evento.</p>
+        </div>
+      </div>
+      <div class="project-nav-row">
+        <button class="project-nav-btn" onclick="showProject('festival-lenta')">← Festival Lenta</button>
+        <button class="project-nav-btn" onclick="showPage('works')" data-es="Ver todos los trabajos →" data-en="View all works →">Ver todos los trabajos →</button>
+      </div>
+    </div>
+  </div>
+</div><!-- /page-video-aesa -->
 
 
 <!-- ══════════════════════════════════════════
@@ -742,60 +968,75 @@
       <p data-es="Diseños experimentales y proyectos personales creados para explorar los límites del diseño en proyectos emergentes." data-en="Experimental designs and side projects crafted to push boundaries for emerging ventures.">Diseños experimentales y proyectos personales creados para explorar los límites del diseño en proyectos emergentes.</p>
     </div>
     <div class="playground-grid">
-      <div class="pg-item" style="grid-column: 3 / 11; aspect-ratio:21/9;">
+      <!-- Row 1 -->
+      <div class="pg-item" style="width:496px; aspect-ratio:496/345;">
         <video autoplay muted loop playsinline>
           <source src="https://framerusercontent.com/assets/xBIDmSbmQ3tvLowlFtVHfsX0p3Q.mp4" type="video/mp4">
         </video>
       </div>
-      <div class="pg-item pg-span-6 pg-h-sq">
+      <div class="pg-item" style="width:356px; aspect-ratio:356/342;">
         <img src="https://framerusercontent.com/images/kMPNhw67dvhKcErNE9QX6oPXzgw.png" alt="">
       </div>
-      <div class="pg-item pg-span-6 pg-h-sq" style="display:grid; grid-template-rows:1fr 1fr; gap:1.2rem; background:transparent; border-radius:0; overflow:visible;">
-        <div class="pg-item" style="height:100%;"><img src="https://framerusercontent.com/images/H7AEeodM6LYkPwhH7dZIXj0GLHQ.png" alt=""></div>
-        <div class="pg-item" style="height:100%;"><img src="https://framerusercontent.com/images/XJ8qwEAcOZqlN7WOhkaU7n3e4.png" alt=""></div>
+      <!-- Row 2 -->
+      <div class="pg-item" style="width:174px; aspect-ratio:174/137;">
+        <img src="https://framerusercontent.com/images/H7AEeodM6LYkPwhH7dZIXj0GLHQ.png" alt="">
       </div>
-      <div class="pg-item pg-span-12 pg-h-land">
+      <div class="pg-item" style="width:158px; aspect-ratio:158/171;">
+        <img src="https://framerusercontent.com/images/XJ8qwEAcOZqlN7WOhkaU7n3e4.png" alt="">
+      </div>
+      <div class="pg-item" style="width:264px; aspect-ratio:264/130;">
         <img src="https://framerusercontent.com/images/cpzLd5eJpjruE2FFh22ItPFUbc.png" alt="">
       </div>
-      <div class="pg-item pg-span-4 pg-h-port">
+      <div class="pg-item" style="width:102px; aspect-ratio:102/185;">
         <img src="https://framerusercontent.com/images/uEtVeUb7ERHzsRWCQWx6EDvOso4.png" alt="">
       </div>
-      <div class="pg-item pg-span-6" style="aspect-ratio:unset;">
+      <div class="pg-item" style="width:147px; aspect-ratio:147/145;">
         <img src="https://framerusercontent.com/images/cLpybM5RyQVjjj7DrrbbEAVhA.png" alt="">
       </div>
-      <div class="pg-item pg-span-7 pg-h-land">
+      <!-- Row 3 -->
+      <div class="pg-item" style="width:913px; aspect-ratio:913/501;">
         <video autoplay muted loop playsinline>
           <source src="https://framerusercontent.com/assets/CmMs6MToRfP4oRHbLWObaYVbFrM.mp4" type="video/mp4">
         </video>
       </div>
-      <div class="pg-item pg-span-5 pg-h-land" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.6rem; background:transparent; border-radius:0; overflow:visible;">
-        <div class="pg-item" style="height:100%;"><img src="https://framerusercontent.com/images/i2BLeNGluJUDz1Xte2tm3aWag.png" alt=""></div>
-        <div class="pg-item" style="height:100%;"><img src="https://framerusercontent.com/images/XjqyJQV6BUekLjvI0XezwNd6DA.png" alt=""></div>
-        <div class="pg-item" style="height:100%;"><img src="https://framerusercontent.com/images/NjIca3Mdln7B9oMDYfP08l47KQ.png" alt=""></div>
+      <!-- Row 4 -->
+      <div class="pg-item" style="width:270px; aspect-ratio:270/509;">
+        <img src="https://framerusercontent.com/images/i2BLeNGluJUDz1Xte2tm3aWag.png" alt="">
       </div>
-      <div class="pg-item pg-span-6 pg-h-land">
+      <div class="pg-item" style="width:273px; aspect-ratio:273/507;">
+        <img src="https://framerusercontent.com/images/XjqyJQV6BUekLjvI0XezwNd6DA.png" alt="">
+      </div>
+      <div class="pg-item" style="width:268px; aspect-ratio:268/509;">
+        <img src="https://framerusercontent.com/images/NjIca3Mdln7B9oMDYfP08l47KQ.png" alt="">
+      </div>
+      <!-- Row 5 -->
+      <div class="pg-item" style="width:280px; aspect-ratio:280/406;">
         <img src="https://framerusercontent.com/images/hz19mOl6iIfqsNtS5uvyoruRvQ.png" alt="">
       </div>
-      <div class="pg-item pg-span-6 pg-h-land">
+      <div class="pg-item" style="width:334px; aspect-ratio:334/411;">
         <img src="https://framerusercontent.com/images/Qzbom9cJ0HASHiENNFPgGOLz08.png" alt="">
       </div>
-      <div class="pg-item pg-span-6 pg-h-land">
+      <div class="pg-item" style="width:315px; aspect-ratio:315/412;">
         <video autoplay muted loop playsinline>
           <source src="https://framerusercontent.com/assets/nQg0v31Kq6CIH6Fg5QYg8sZwVg.mp4" type="video/mp4">
         </video>
       </div>
-      <div class="pg-item pg-span-6 pg-h-land">
+      <!-- Row 6 -->
+      <div class="pg-item" style="width:247px; aspect-ratio:247/275;">
         <video autoplay muted loop playsinline>
           <source src="https://framerusercontent.com/assets/hJkgoW6wqiZyeDJsGfIFkZPkgtg.mp4" type="video/mp4">
         </video>
       </div>
-      <div class="pg-item pg-span-12" style="aspect-ratio:16/7;">
+      <div class="pg-item" style="width:227px; aspect-ratio:227/274;">
         <img src="https://framerusercontent.com/images/hDldisiPsZ1EqyVHKFMJRJjUI.jpg" alt="">
       </div>
     </div>
   </div>
 </div><!-- /page-playground -->
 
+
+<!-- CUSTOM CURSOR -->
+<div id="cursor" class="cursor"></div>
 
 <!-- LIGHTBOX -->
 <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
@@ -857,6 +1098,111 @@
   document.querySelectorAll('.pg-item img').forEach(img => {
     img.addEventListener('click', () => openLightbox(img.src));
   });
+
+  // ─── CUSTOM CURSOR ───
+  (function () {
+    const cursor = document.getElementById('cursor');
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+    let curX = mouseX, curY = mouseY;
+    document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+    function render() {
+      curX += (mouseX - curX) * 0.2;
+      curY += (mouseY - curY) * 0.2;
+      cursor.style.transform = `translate(${curX}px, ${curY}px)`;
+      requestAnimationFrame(render);
+    }
+    render();
+    // Grow over clickable elements
+    const interactive = 'a, button, .work-card, .works-page-card, .faq-q, .lang-btn, .pg-item img';
+    document.addEventListener('mouseover', e => {
+      if (e.target.closest(interactive)) cursor.classList.add('grow');
+    });
+    document.addEventListener('mouseout', e => {
+      if (e.target.closest(interactive)) cursor.classList.remove('grow');
+    });
+    document.addEventListener('mouseleave', () => cursor.style.opacity = '0');
+    document.addEventListener('mouseenter', () => cursor.style.opacity = '1');
+  })();
+
+  // ─── PANTALLA COMPLETA: restaurar cursor del sistema ───
+  function onFullscreenChange() {
+    const fs = document.fullscreenElement || document.webkitFullscreenElement;
+    document.body.classList.toggle('in-fullscreen', !!fs);
+  }
+  document.addEventListener('fullscreenchange', onFullscreenChange);
+  document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+
+  // ─── CONTROL DE SONIDO DEL VIDEO ───
+  function toggleVideoSound(btn) {
+    const wrap = btn.closest('.pg-video-wrap');
+    const v = wrap.querySelector('video');
+    v.muted = !v.muted;
+    if (!v.muted) { v.volume = 1; v.play().catch(() => {}); }
+    const on = !v.muted;
+    btn.querySelector('.ic').textContent = on ? '🔊' : '🔇';
+    const txt = btn.querySelector('.txt');
+    txt.setAttribute('data-es', on ? 'Silenciar' : 'Activar sonido');
+    txt.setAttribute('data-en', on ? 'Mute' : 'Enable sound');
+    txt.textContent = txt.getAttribute('data-' + currentLang);
+    const tag = wrap.querySelector('.sound-tag');
+    if (tag) tag.classList.add('hide');
+  }
+
+  // ─── CARTELITO "SONIDO RECOMENDADO": visible los primeros 8s, luego solo en hover ───
+  (function () {
+    const wrap = document.querySelector('.pg-video-wrap');
+    if (!wrap) return;
+    const v = wrap.querySelector('video');
+    let introDone = false;
+    v.addEventListener('timeupdate', () => {
+      if (!introDone && v.currentTime >= 8) {
+        introDone = true;
+        wrap.classList.add('past-intro');
+      }
+    });
+  })();
+
+  // ─── NUTRA: sombra adaptativa según el contenido de cada imagen ───
+  (function () {
+    const imgs = document.querySelectorAll('#page-festival-nutra .project-gallery img');
+    imgs.forEach(img => {
+      const probe = new Image();
+      probe.crossOrigin = 'anonymous';
+      probe.onload = () => {
+        try {
+          const w = 40, h = 40;
+          const c = document.createElement('canvas'); c.width = w; c.height = h;
+          const ctx = c.getContext('2d');
+          ctx.drawImage(probe, 0, 0, w, h);
+          const d = ctx.getImageData(0, 0, w, h).data;
+          let sum = 0, n = 0;
+          // Promedio de luminancia solo en el borde exterior (anillo de 4px)
+          for (let y = 0; y < h; y++) {
+            for (let x = 0; x < w; x++) {
+              if (x > 3 && x < w - 4 && y > 3 && y < h - 4) continue;
+              const i = (y * w + x) * 4;
+              sum += 0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2];
+              n++;
+            }
+          }
+          const lum = (sum / n) / 255; // 0 (oscuro) .. 1 (claro)
+          let ring, drop;
+          if (lum > 0.5) {                        // borde claro → borde/sombra oscuros
+            const a = Math.min(0.22, 0.05 + (lum - 0.5) * 0.34);
+            ring = `rgba(0,0,0,${a.toFixed(3)})`;
+            drop = `rgba(0,0,0,${Math.min(0.4, a + 0.18).toFixed(3)})`;
+          } else {                                // borde oscuro → borde claro + sombra suave
+            const a = Math.min(0.35, 0.12 + (0.5 - lum) * 0.4);
+            ring = `rgba(255,255,255,${a.toFixed(3)})`;
+            drop = 'rgba(0,0,0,0.30)';
+          }
+          img.style.boxShadow = `0 0 0 1.5px ${ring}, 0 12px 36px -14px ${drop}`;
+        } catch (e) { /* canvas bloqueado por CORS: se mantiene la sombra CSS por defecto */ }
+      };
+      probe.src = img.currentSrc || img.src;
+    });
+  })();
 
   // ─── FAQ ───
   document.querySelectorAll('.faq-q').forEach(btn => {
