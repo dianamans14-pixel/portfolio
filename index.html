@@ -197,6 +197,7 @@
   .project-overview-text h4 { font-family: var(--serif); font-size: 1.3rem; margin-bottom: 1rem; }
   .project-overview-text p { color: var(--fg2); line-height: 1.8; font-size: 0.97rem; margin-bottom: 1rem; }
   .project-overview-text strong { color: var(--fg); }
+  .project-credit { font-size: 0.78rem; color: var(--fg3); margin-top: 1.4rem; letter-spacing: 0.02em; }
   .project-gallery-label { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 1.2rem; }
   .project-gallery-title { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.8rem); letter-spacing: -0.02em; margin-bottom: 2.5rem; }
   .project-gallery { display: flex; flex-direction: column; gap: 0; }
@@ -409,6 +410,14 @@
         <p data-es="Proyecto académico basado en el análisis del cine argentino como referente cultural y visual. Exploración de cómo el cine refleja identidad, historia y perspectivas artísticas locales, traducidas en un afiche cinematográfico contemporáneo." data-en="Academic project based on the analysis of Argentine cinema as a cultural and visual reference. Exploration of how cinema reflects local identity, history, and artistic perspectives, translated into a contemporary movie poster.">Proyecto académico basado en el análisis del cine argentino como referente cultural y visual. Exploración de cómo el cine refleja identidad, historia y perspectivas artísticas locales, traducidas en un afiche cinematográfico contemporáneo.</p>
       </div>
     </div>
+    <div class="work-card" onclick="showProject('reel-2026')">
+      <img class="work-card-img" src="reel-poster.jpg" alt="Reel 2026">
+      <div class="work-card-body">
+        <p class="work-card-tag" data-es="Showreel" data-en="Showreel">Showreel</p>
+        <h3>Reel 2026</h3>
+        <p data-es="Reel audiovisual 2026: una selección de mi trabajo en motion graphics, animación y edición reunida en una pieza dinámica." data-en="2026 audiovisual reel: a selection of my work in motion graphics, animation, and editing brought together in one dynamic piece.">Reel audiovisual 2026: una selección de mi trabajo en motion graphics, animación y edición reunida en una pieza dinámica.</p>
+      </div>
+    </div>
     <div class="work-card" onclick="showProject('festival-nutra')">
       <img class="work-card-img" src="https://framerusercontent.com/images/jtk21LERHjBCtGFdhEmc573lp0.png" alt="Festival Nutra">
       <div class="work-card-body">
@@ -566,6 +575,14 @@
           <p class="works-page-card-tag" data-es="Proyecto Universitario" data-en="University Project">Proyecto Universitario</p>
           <h3>La luz incidente</h3>
           <p data-es="Exploración del cine argentino como referente cultural y visual, traducida en un afiche cinematográfico contemporáneo con tipografía expresiva." data-en="Exploration of Argentine cinema as a cultural and visual reference, translated into a contemporary movie poster with expressive typography.">Exploración del cine argentino como referente cultural y visual, traducida en un afiche cinematográfico contemporáneo con tipografía expresiva.</p>
+        </div>
+      </div>
+      <div class="works-page-card" onclick="showProject('reel-2026')">
+        <img src="reel-poster.jpg" alt="Reel 2026">
+        <div class="works-page-card-body">
+          <p class="works-page-card-tag" data-es="Showreel" data-en="Showreel">Showreel</p>
+          <h3>Reel 2026</h3>
+          <p data-es="Reel audiovisual 2026 que reúne una selección de mi trabajo en motion graphics, animación y edición." data-en="2026 audiovisual reel bringing together a selection of my work in motion graphics, animation, and editing.">Reel audiovisual 2026 que reúne una selección de mi trabajo en motion graphics, animación y edición.</p>
         </div>
       </div>
       <div class="works-page-card" onclick="showProject('festival-nutra')">
@@ -739,7 +756,7 @@
       </div>
       <div class="project-nav-row">
         <button class="project-nav-btn" onclick="showProject('saint-johns')">← Saint John's</button>
-        <button class="project-nav-btn" onclick="showProject('festival-nutra')">Festival Nutra →</button>
+        <button class="project-nav-btn" onclick="showProject('reel-2026')">Reel 2026 →</button>
       </div>
     </div>
   </div>
@@ -812,7 +829,7 @@
         </div>
       </div>
       <div class="project-nav-row">
-        <button class="project-nav-btn" onclick="showProject('laluzincidente')">← La luz incidente</button>
+        <button class="project-nav-btn" onclick="showProject('reel-2026')">← Reel 2026</button>
         <button class="project-nav-btn" onclick="showProject('festival-lenta')">Festival Lenta →</button>
       </div>
     </div>
@@ -955,6 +972,61 @@
     </div>
   </div>
 </div><!-- /page-video-aesa -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: REEL 2026
+══════════════════════════════════════════ -->
+<div id="page-reel-2026" class="page">
+  <div class="project-page">
+    <div class="project-back">
+      <button class="back-btn" onclick="showPage('works')" data-es="← Volver a todos los trabajos" data-en="← Back to all works">← Volver a todos los trabajos</button>
+    </div>
+    <div class="project-header">
+      <p class="project-tag" data-es="Showreel" data-en="Showreel">Showreel</p>
+      <h1>Reel 2026</h1>
+      <p data-es="Una selección de mi trabajo en motion graphics, animación y edición reunida en una pieza dinámica. El reel 2026 resume mi lenguaje visual, mi ritmo y las disciplinas audiovisuales en las que trabajo." data-en="A selection of my work in motion graphics, animation, and editing brought together in one dynamic piece. The 2026 reel captures my visual language, rhythm, and the audiovisual disciplines I work across.">Una selección de mi trabajo en motion graphics, animación y edición reunida en una pieza dinámica. El reel 2026 resume mi lenguaje visual, mi ritmo y las disciplinas audiovisuales en las que trabajo.</p>
+    </div>
+    <div class="project-hero-img">
+      <video controls controlslist="nodownload" poster="reel-poster.jpg" preload="metadata" style="width:100%; display:block; border-radius: var(--radius); background:#111;">
+        <source src="reel.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="project-body">
+      <div class="project-overview">
+        <div class="project-meta">
+          <h4 data-es="Resumen del proyecto" data-en="Project Overview">Resumen del proyecto</h4>
+          <div class="project-meta-item">
+            <div class="project-meta-label" data-es="Tipo" data-en="Type">Tipo</div>
+            <div class="project-meta-val">Showreel</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="project-meta-label" data-es="Año" data-en="Year">Año</div>
+            <div class="project-meta-val">2026</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="project-meta-label" data-es="Disciplinas" data-en="Disciplines">Disciplinas</div>
+            <div class="project-meta-val" data-es="Motion Graphics · Animación · Edición" data-en="Motion Graphics · Animation · Editing">Motion Graphics · Animación · Edición</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="project-meta-label" data-es="Rol" data-en="Role">Rol</div>
+            <div class="project-meta-val" data-es="Motion Designer · Editora" data-en="Motion Designer · Editor">Motion Designer · Editora</div>
+          </div>
+        </div>
+        <div class="project-overview-text">
+          <h4 data-es="Sobre el proyecto" data-en="About the project">Sobre el proyecto</h4>
+          <p><strong data-es="Reel 2026 — una síntesis de mi trabajo audiovisual reciente." data-en="2026 Reel — a synthesis of my recent audiovisual work.">Reel 2026 — una síntesis de mi trabajo audiovisual reciente.</strong></p>
+          <p data-es="Reúne fragmentos de proyectos de motion graphics, animación y edición, mostrando distintos estilos, ritmos y soluciones visuales. La pieza está pensada para transmitir de un vistazo mi manera de contar historias a través del movimiento, el sonido y la imagen." data-en="It brings together fragments from motion graphics, animation, and editing projects, showing different styles, rhythms, and visual solutions. The piece is designed to convey at a glance how I tell stories through movement, sound, and image.">Reúne fragmentos de proyectos de motion graphics, animación y edición, mostrando distintos estilos, ritmos y soluciones visuales. La pieza está pensada para transmitir de un vistazo mi manera de contar historias a través del movimiento, el sonido y la imagen.</p>
+          <p class="project-credit" data-es="Ilustraciones: Eugenia Castro<br>Animación: Diana Mansilla" data-en="Illustrations: Eugenia Castro<br>Animation: Diana Mansilla">Ilustraciones: Eugenia Castro<br>Animación: Diana Mansilla</p>
+        </div>
+      </div>
+      <div class="project-nav-row">
+        <button class="project-nav-btn" onclick="showProject('laluzincidente')">← La luz incidente</button>
+        <button class="project-nav-btn" onclick="showProject('festival-nutra')">Festival Nutra →</button>
+      </div>
+    </div>
+  </div>
+</div><!-- /page-reel-2026 -->
 
 
 <!-- ══════════════════════════════════════════
